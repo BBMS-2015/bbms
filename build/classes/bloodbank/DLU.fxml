@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="page2" prefHeight="700.0" prefWidth="963.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.DLUController">
+   <children>
+      <AnchorPane fx:id="anc_filter" prefHeight="26.0" prefWidth="428.0" AnchorPane.bottomAnchor="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TableView fx:id="tvDonorTable" layoutY="41.0" prefHeight="317.0" prefWidth="428.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+         <columns>
+            <TableColumn maxWidth="-1.0" prefWidth="75.0" text="C1" />
+            <TableColumn maxWidth="-1.0" prefWidth="75.0" resizable="false" text="C2" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

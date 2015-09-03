@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.LoginController">
+    <stylesheets>
+        <URL value="@login.css" />
+    </stylesheets>
+    <children>
+      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane fx:id="gd" prefHeight="220.0" prefWidth="371.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                    <Label id="lbllogin" fx:id="lbllogin" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="600.0" text="BLOOD BANK MANAGER" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <TextField id="txtuname" fx:id="txtuname" alignment="CENTER" prefHeight="26.0" prefWidth="600.0" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <PasswordField id="txtpass" fx:id="txtpass" alignment="CENTER" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <Button id="btlogin" fx:id="btlogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#vlogin" prefHeight="26.0" prefWidth="600.0" text="Login" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <Label id="lblnotif" fx:id="lblnotif" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="load" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" prefHeight="50.0" prefWidth="600.0" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <ProgressIndicator fx:id="pi" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

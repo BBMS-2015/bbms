@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="329.0" scaleShape="false" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.ConfirmController">
+    <stylesheets>
+        <URL value="@confirm.css" />
+    </stylesheets>
+   <children>
+      <Button fx:id="btnSubmit" layoutX="65.0" layoutY="55.0" mnemonicParsing="false" text="Yes, Submit">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <Button fx:id="btnCancel" layoutX="193.0" layoutY="55.0" mnemonicParsing="false" text="Cancel">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <Label fx:id="confirm_label" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="301.0" text="Are you sure want to Submit details ?" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,13 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-background-color: #A8A8A8;
+
+}
+#btlogin{
+    -fx-background-color: #606060;
+    -fx-text-fill: rgb(255, 255, 255);
+  
+}

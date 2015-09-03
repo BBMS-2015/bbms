@@ -1,0 +1,24 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-background-color: #ccccff;
+}
+.pagination .toggle-button , .mypage .button{
+    -fx-background-radius:15px;
+    -fx-padding: 0px;
+}
+.pagination .button{
+    -fx-padding: 5 15 5 16px;
+}
+.pagination .text-field {
+   -fx-vgap: 0;
+}
+.label{
+    -fx-alignment: CENTER;
+    
+}
+#anchor_tabs{
+    -fx-background-color: #666666;
+}
