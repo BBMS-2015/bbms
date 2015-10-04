@@ -44,7 +44,7 @@ public class DBApi {
     Object[][] MyArray = null;
     ArrayList<Object[]> MyArrayList = null;
     String[] AttributeNames;
-    int NumberOfRows, NumberOfColumns;
+    private int NumberOfRows, NumberOfColumns;
     
 
     String sDBServer = "localhost";
@@ -321,8 +321,9 @@ public class DBApi {
         return NumberOfRows;
     }
     
-    //DLU - Get Data
-    
+    public int getColumnCount() {
+        return NumberOfColumns;
+    }
     
     public String[] question(String i) {
         try {

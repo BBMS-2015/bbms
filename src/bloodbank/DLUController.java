@@ -49,8 +49,6 @@ public class DLUController implements Initializable {
     
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -192,13 +190,10 @@ public class DLUController implements Initializable {
     public void populate_table_fil(String val, String val1, String val2, String sListing) {
 
         try {
-            //int l = objDBApi.columns_fil(val, val1, val2, sListing);
-            //Modified By Sumant (Predefining The Column Count to avoid hitting Database)
-            int no_column=8;
-            int l=no_column;
-            int m = objDBApi.rows_fil(val, val1, val2, sListing);
+            int iRowCount = objDBApi.rows_fil(val, val1, val2, sListing);
+            int iColumnCount = objDBApi.getColumnCount();
             row = null;
-            for (int i = 0; i < l; i++) {
+            for (int i = 0; i < iColumnCount; i++) {
                 final int p = i;
                 TableColumn col = new TableColumn(objDBApi.dluColumnName(i));
                 col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
@@ -209,9 +204,9 @@ public class DLUController implements Initializable {
                 tvDonorTable.getColumns().addAll(col);
             }
 
-            for (int k = 0; k < m; k++) {
+            for (int k = 0; k < iRowCount; k++) {
                 row = FXCollections.observableArrayList();
-                for (int i = 0; i < l; i++) {
+                for (int i = 0; i < iColumnCount; i++) {
                     row.add(objDBApi.dluColumnValue(k, i));
                 }
                 data.add(row);
