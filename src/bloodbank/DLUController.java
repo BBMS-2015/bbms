@@ -194,7 +194,8 @@ public class DLUController implements Initializable {
         try {
             //int l = objDBApi.columns_fil(val, val1, val2, sListing);
             //Modified By Sumant (Predefining The Column Count to avoid hitting Database)
-            int l=8;
+            int no_column=8;
+            int l=no_column;
             int m = objDBApi.rows_fil(val, val1, val2, sListing);
             row = null;
             for (int i = 0; i < l; i++) {
