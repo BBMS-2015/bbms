@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="primary" prefHeight="715.0" prefWidth="1135.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.HomeController">
+<AnchorPane id="AnchorPane" fx:id="primary" prefHeight="740.0" prefWidth="1100.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.HomeController">
     <stylesheets>
         <URL value="@home.css" />
     </stylesheets>
     <children>
         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="0.0" prefWidth="160.0" visible="false">
+                <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="0.0" prefWidth="1098.0" visible="false">
                     <children>
                         <MenuBar layoutX="-125.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <menus>
@@ -37,18 +37,18 @@
                         </MenuBar>
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1133.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="730.0" prefWidth="1098.0">
                     <children>
-                        <SplitPane dividerPositions="0.2483221476510067" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.2483221476510067" prefHeight="730.0" prefWidth="1098.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="-Infinity" prefHeight="700.0" prefWidth="160.0" styleClass="mainFxmlClass" SplitPane.resizableWithParent="false">
+                                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="-Infinity" prefHeight="730.0" prefWidth="160.0" styleClass="mainFxmlClass" SplitPane.resizableWithParent="false">
                                     <children>
                                         <ListView id="lvmodule" fx:id="lvmodule" layoutX="-37.0" layoutY="33.0" prefHeight="700.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="540.0">
+                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="928.0">
                                     <children>
-            <ScrollPane fx:id="spMasterPane" layoutX="-2.0" layoutY="1.0" prefHeight="700.0" prefViewportHeight="360.0" prefViewportWidth="430.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
+            <ScrollPane fx:id="spMasterPane" fitToHeight="true" fitToWidth="true" layoutX="-2.0" layoutY="1.0" prefHeight="700.0" prefViewportHeight="360.0" prefViewportWidth="430.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
                               <AnchorPane id="anchor_tabs" fx:id="formSubmitPage" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Button fx:id="sub_but" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Submit Form" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="139.0" />

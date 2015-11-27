@@ -219,7 +219,8 @@ public class DLUController implements Initializable {
                 tvDonorTable.setItems(data);
             }
         } catch (Exception e) {
-            System.out.println("Error on Building Data");
+            System.out.println("Error on Building Data : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

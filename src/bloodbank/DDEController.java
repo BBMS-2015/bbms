@@ -69,27 +69,43 @@ public class DDEController implements Initializable {
     @FXML
     private TextField tfOccupation;
     @FXML
-    private TextField tfResLandlineStdCode;
+    private TextField tfResidenceLandlineStdCode;
     @FXML
-    private TextField tfResLandlineNumber;
+    private TextField tfResidenceLandline;
     @FXML
-    private TextField tfResEmail;
+    private TextField tfResidenceEmail;
     @FXML
-    private TextField tfResMobileNumber;
+    private TextField tfResidenceMobile;
     @FXML
     private TextArea taResidenceAddress;
     @FXML
+    private TextField tfResidenceArea;
+    @FXML
+    private TextField tfResidenceVillageOrTownOrCity;
+    @FXML
+    private TextField tfResidenceTaluk;
+    @FXML
+    private TextField tfResidenceDistrict;
+    @FXML
     private TextField tfResidencePincode;
     @FXML
-    private TextField tfOffLandlineStdCode;
+    private TextField tfOfficeLandlineStdCode;
     @FXML
-    private TextField tfOffLandlineNumber;
+    private TextField tfOfficeLandline;
     @FXML
-    private TextField tfOffEmail;
+    private TextField tfOfficeEmail;
     @FXML
-    private TextField tfOffMobileNumber;
+    private TextField tfOfficeMobile;
     @FXML
     private TextArea taOfficeAddress;
+    @FXML
+    private TextField tfOfficeArea;
+    @FXML
+    private TextField tfOfficeVillageOrTownOrCity;
+    @FXML
+    private TextField tfOfficeTaluk;
+    @FXML
+    private TextField tfOfficeDistrict;    
     @FXML
     private TextField tfOfficePincode;
     @FXML
@@ -125,7 +141,7 @@ public class DDEController implements Initializable {
     private Button btnReset;
 
     /*Navin code */
-    private String[] formData = new String[25];
+    private String[] formData = new String[33];
     private int check;
     protected boolean willingnessChoice = false;
     /* WB to be selected by default */
@@ -140,8 +156,16 @@ public class DDEController implements Initializable {
     private boolean bRegistrationDateValidate;
     private boolean bSuggestedNextDonationDateValidate;
     private boolean bResidenceAddressValidate;
+    private boolean bResidenceAreaValidate;
+    private boolean bResidenceVillageOrTownOrCityValidate;
+    private boolean bResidenceTalukValidate;
+    private boolean bResidenceDistrictValidate;
     private boolean bResidencePincodeValidate;
     private boolean bOfficeAddressValidate;
+    private boolean bOfficeAreaValidate;
+    private boolean bOfficeVillageOrTownOrCityValidate;
+    private boolean bOfficeTalukValidate;
+    private boolean bOfficeDistrictValidate;
     private boolean bOfficePincodeValidate;
     private boolean bOtherValidate;
     private boolean bWeddingValidate;
@@ -184,8 +208,17 @@ public class DDEController implements Initializable {
         bRegistrationDateValidate = false;
         bSuggestedNextDonationDateValidate = false;
         bResidenceAddressValidate = false;
+        bResidenceAreaValidate = false;
+        bResidenceVillageOrTownOrCityValidate = false;
+        bResidenceTalukValidate = false;
+        bResidenceDistrictValidate = false;
         bResidencePincodeValidate = false;
         bOfficeAddressValidate = false;
+        bOfficeAreaValidate = false;
+        bOfficeVillageOrTownOrCityValidate = false;
+        bOfficeTalukValidate = false;
+        bOfficeDistrictValidate = false;
+        bOfficePincodeValidate = false;
         bOtherValidate = false;
         bWeddingValidate = false;
         bResLandlineNumberValidate = false;
@@ -394,17 +427,17 @@ public class DDEController implements Initializable {
             }
         });
 
-        tfResLandlineStdCode.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(4));
-        tfResLandlineStdCode.textProperty().addListener(new ChangeListener<String>() {
+        tfResidenceLandlineStdCode.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(4));
+        tfResidenceLandlineStdCode.textProperty().addListener(new ChangeListener<String>() {
             
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfResLandlineStdCode.getStyleClass();
-                if (tfResLandlineStdCode.getText().length() == 0) {
+                ObservableList<String> styleClass = tfResidenceLandlineStdCode.getStyleClass();
+                if (tfResidenceLandlineStdCode.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bResLandlineStdCodeValidate = false;
                     callValidation();
-                } else if (tfResLandlineStdCode.getText().length() < 3) {
+                } else if (tfResidenceLandlineStdCode.getText().length() < 3) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bResLandlineStdCodeValidate) {
@@ -423,16 +456,16 @@ public class DDEController implements Initializable {
             }
         });
         
-        tfResLandlineNumber.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(8));
-        tfResLandlineNumber.textProperty().addListener(new ChangeListener<String>() {
+        tfResidenceLandline.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(8));
+        tfResidenceLandline.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfResLandlineNumber.getStyleClass();
-                if (tfResLandlineNumber.getText().length() == 0) {
+                ObservableList<String> styleClass = tfResidenceLandline.getStyleClass();
+                if (tfResidenceLandline.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bResLandlineNumberValidate = false;
                     callValidation();
-                } else if (tfResLandlineNumber.getText().length() < 6) {
+                } else if (tfResidenceLandline.getText().length() < 6) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bResLandlineNumberValidate) {
@@ -451,16 +484,16 @@ public class DDEController implements Initializable {
             }
         });
 
-        tfResMobileNumber.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(10));
-        tfResMobileNumber.textProperty().addListener(new ChangeListener<String>() {
+        tfResidenceMobile.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(10));
+        tfResidenceMobile.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfResMobileNumber.getStyleClass();
-                if (tfResMobileNumber.getText().length() == 0) {
+                ObservableList<String> styleClass = tfResidenceMobile.getStyleClass();
+                if (tfResidenceMobile.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bResMobileNumberValidate = false;
                     callValidation();
-                } else if (tfResMobileNumber.getText().length() < 10) {
+                } else if (tfResidenceMobile.getText().length() < 10) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bResMobileNumberValidate) {
@@ -479,16 +512,16 @@ public class DDEController implements Initializable {
             }
         });
         
-        tfOffLandlineStdCode.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(4));
-        tfOffLandlineStdCode.textProperty().addListener(new ChangeListener<String>() {
+        tfOfficeLandlineStdCode.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(4));
+        tfOfficeLandlineStdCode.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfOffLandlineStdCode.getStyleClass();
-                if (tfOffLandlineStdCode.getText().length() == 0) {
+                ObservableList<String> styleClass = tfOfficeLandlineStdCode.getStyleClass();
+                if (tfOfficeLandlineStdCode.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bOffLandlineStdCodeValidate = false;
                     callValidation();
-                } else if (tfOffLandlineStdCode.getText().length() < 3) {
+                } else if (tfOfficeLandlineStdCode.getText().length() < 3) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bOffLandlineStdCodeValidate) {
@@ -508,16 +541,16 @@ public class DDEController implements Initializable {
             }
         });
         
-        tfOffLandlineNumber.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(8));
-        tfOffLandlineNumber.textProperty().addListener(new ChangeListener<String>() {
+        tfOfficeLandline.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(8));
+        tfOfficeLandline.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfOffLandlineNumber.getStyleClass();
-                if (tfOffLandlineNumber.getText().length() == 0) {
+                ObservableList<String> styleClass = tfOfficeLandline.getStyleClass();
+                if (tfOfficeLandline.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bOffLandlineNumberValidate = false;
                     callValidation();
-                } else if (tfOffLandlineNumber.getText().length() < 6) {
+                } else if (tfOfficeLandline.getText().length() < 6) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bOffLandlineNumberValidate) {
@@ -536,16 +569,16 @@ public class DDEController implements Initializable {
             }
         });
 
-        tfOffMobileNumber.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(10));
-        tfOffMobileNumber.textProperty().addListener(new ChangeListener<String>() {
+        tfOfficeMobile.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(10));
+        tfOfficeMobile.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfOffMobileNumber.getStyleClass();
-                if (tfOffMobileNumber.getText().length() == 0) {
+                ObservableList<String> styleClass = tfOfficeMobile.getStyleClass();
+                if (tfOfficeMobile.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bOffMobileNumberValidate = false;
                     callValidation();
-                } else if (tfOffMobileNumber.getText().length() < 10) {
+                } else if (tfOfficeMobile.getText().length() < 10) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bOffMobileNumberValidate) {
@@ -929,6 +962,126 @@ public class DDEController implements Initializable {
             }
         });
         
+        tfResidenceArea.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfResidenceArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfResidenceArea.getText().trim().length() > 0) {
+                        tfResidenceArea.setText(capitalizeFirstLetterOfEachWord(tfResidenceArea.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfResidenceArea.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfResidenceArea.getText().trim().length() == 0) {
+                    bResidenceAreaValidate = false;
+                    callValidation();
+                } else {
+                    if (!bResidenceAreaValidate) {
+                        bResidenceAreaValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+
+        tfResidenceVillageOrTownOrCity.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfResidenceVillageOrTownOrCity.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfResidenceVillageOrTownOrCity.getText().trim().length() > 0) {
+                        tfResidenceVillageOrTownOrCity.setText(capitalizeFirstLetterOfEachWord(tfResidenceVillageOrTownOrCity.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfResidenceVillageOrTownOrCity.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfResidenceVillageOrTownOrCity.getText().trim().length() == 0) {
+                    bResidenceVillageOrTownOrCityValidate = false;
+                    callValidation();
+                } else {
+                    if (!bResidenceVillageOrTownOrCityValidate) {
+                        bResidenceVillageOrTownOrCityValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+        
+        tfResidenceTaluk.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfResidenceTaluk.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfResidenceTaluk.getText().trim().length() > 0) {
+                        tfResidenceTaluk.setText(capitalizeFirstLetterOfEachWord(tfResidenceTaluk.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfResidenceTaluk.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfResidenceTaluk.getText().trim().length() == 0) {
+                    bResidenceTalukValidate = false;
+                    callValidation();
+                } else {
+                    if (!bResidenceTalukValidate) {
+                        bResidenceTalukValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+
+        tfResidenceDistrict.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfResidenceDistrict.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfResidenceDistrict.getText().trim().length() > 0) {
+                        tfResidenceDistrict.setText(capitalizeFirstLetterOfEachWord(tfResidenceDistrict.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfResidenceDistrict.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfResidenceDistrict.getText().trim().length() == 0) {
+                    bResidenceDistrictValidate = false;
+                    callValidation();
+                } else {
+                    if (!bResidenceDistrictValidate) {
+                        bResidenceDistrictValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+        
         tfResidencePincode.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(6));
         tfResidencePincode.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -958,29 +1111,29 @@ public class DDEController implements Initializable {
             }
         });
         
-        tfResEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        tfResidenceEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
             
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (!newPropertyValue) {
-                    if (tfResEmail.getText().trim().length() > 0) {
-                        tfResEmail.getText().trim().toLowerCase();
+                    if (tfResidenceEmail.getText().trim().length() > 0) {
+                        tfResidenceEmail.getText().trim().toLowerCase();
                     }
                 }
             }
         });
 
-        tfResEmail.textProperty().addListener(new ChangeListener<String>() {
+        tfResidenceEmail.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-                ObservableList<String> styleClass = tfResEmail.getStyleClass();
-                if (tfResEmail.getText().trim().length() == 0) {
+                ObservableList<String> styleClass = tfResidenceEmail.getStyleClass();
+                if (tfResidenceEmail.getText().trim().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bResEmailValidate = false;
                     callValidation();
-                } else if (ProjectUtils.emailValidation(tfResEmail.getText())) {
+                } else if (ProjectUtils.emailValidation(tfResidenceEmail.getText())) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bResEmailValidate) {
@@ -1053,6 +1206,130 @@ public class DDEController implements Initializable {
             }
 
         });
+
+        tfOfficeArea.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfOfficeArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfOfficeArea.getText().trim().length() > 0) {
+                        tfOfficeArea.setText(capitalizeFirstLetterOfEachWord(tfOfficeArea.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfOfficeArea.textProperty().addListener(new ChangeListener<String>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfOfficeArea.getText().trim().length() == 0) {
+                    bOfficeAreaValidate = false;
+                    callValidation();
+                } else {
+                    if (!bOfficeAreaValidate) {
+                        bOfficeAreaValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+
+        tfOfficeVillageOrTownOrCity.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfOfficeVillageOrTownOrCity.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfOfficeVillageOrTownOrCity.getText().trim().length() > 0) {
+                        tfOfficeVillageOrTownOrCity.setText(capitalizeFirstLetterOfEachWord(tfOfficeVillageOrTownOrCity.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfOfficeVillageOrTownOrCity.textProperty().addListener(new ChangeListener<String>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfOfficeVillageOrTownOrCity.getText().trim().length() == 0) {
+                    bOfficeVillageOrTownOrCityValidate = false;
+                    callValidation();
+                } else {
+                    if (!bOfficeVillageOrTownOrCityValidate) {
+                        bOfficeVillageOrTownOrCityValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+
+        tfOfficeTaluk.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfOfficeTaluk.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfOfficeTaluk.getText().trim().length() > 0) {
+                        tfOfficeTaluk.setText(capitalizeFirstLetterOfEachWord(tfOfficeTaluk.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfOfficeTaluk.textProperty().addListener(new ChangeListener<String>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfOfficeTaluk.getText().trim().length() == 0) {
+                    bOfficeTalukValidate = false;
+                    callValidation();
+                } else {
+                    if (!bOfficeTalukValidate) {
+                        bOfficeTalukValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
+
+        tfOfficeDistrict.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
+
+        tfOfficeDistrict.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfOfficeDistrict.getText().trim().length() > 0) {
+                        tfOfficeDistrict.setText(capitalizeFirstLetterOfEachWord(tfOfficeDistrict.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfOfficeDistrict.textProperty().addListener(new ChangeListener<String>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfOfficeDistrict.getText().trim().length() == 0) {
+                    bOfficeDistrictValidate = false;
+                    callValidation();
+                } else {
+                    if (!bOfficeDistrictValidate) {
+                        bResidenceDistrictValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
+        });
         
         tfOfficePincode.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.numeric_Validation(6));
         tfOfficePincode.textProperty().addListener(new ChangeListener<String>() {
@@ -1084,29 +1361,29 @@ public class DDEController implements Initializable {
             }
         });
 
-        tfOffEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        tfOfficeEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
             
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (!newPropertyValue) {
-                    if (tfOffEmail.getText().trim().length() > 0) {
-                        tfOffEmail.getText().trim().toLowerCase();
+                    if (tfOfficeEmail.getText().trim().length() > 0) {
+                        tfOfficeEmail.getText().trim().toLowerCase();
                     }
                 }
             }
         });
 
-        tfOffEmail.textProperty().addListener(new ChangeListener<String>() {
+        tfOfficeEmail.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-                ObservableList<String> styleClass = tfOffEmail.getStyleClass();
-                if (tfOffEmail.getText().trim().length() == 0) {
+                ObservableList<String> styleClass = tfOfficeEmail.getStyleClass();
+                if (tfOfficeEmail.getText().trim().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
                     bOffEmailValidate = false;
                     callValidation();
-                } else if (ProjectUtils.emailValidation(tfOffEmail.getText())) {
+                } else if (ProjectUtils.emailValidation(tfOfficeEmail.getText())) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
                         if (bOffEmailValidate) {
@@ -1170,8 +1447,8 @@ public class DDEController implements Initializable {
         }
 
         boolean resPhoneValidate = false;
-        iLandlineLength = tfResLandlineNumber.getText().trim().length();
-        iLandlineStdCodeLength = tfResLandlineStdCode.getText().trim().length();
+        iLandlineLength = tfResidenceLandline.getText().trim().length();
+        iLandlineStdCodeLength = tfResidenceLandlineStdCode.getText().trim().length();
         
         if ((iLandlineLength == 0) && (iLandlineStdCodeLength == 0)) {
             resPhoneValidate = true;
@@ -1180,8 +1457,8 @@ public class DDEController implements Initializable {
         }
 
         boolean offPhoneValidate = false;
-        iLandlineLength = tfOffLandlineNumber.getText().trim().length();
-        iLandlineStdCodeLength = tfOffLandlineStdCode.getText().trim().length();
+        iLandlineLength = tfOfficeLandline.getText().trim().length();
+        iLandlineStdCodeLength = tfOfficeLandlineStdCode.getText().trim().length();
         
         if ((iLandlineLength == 0) && (iLandlineStdCodeLength == 0)) {
             offPhoneValidate = true;
@@ -1190,26 +1467,26 @@ public class DDEController implements Initializable {
         }
         
         boolean resMobileValidate = false;
-        iMobileLength = tfResMobileNumber.getText().length();
+        iMobileLength = tfResidenceMobile.getText().length();
         
         if (iMobileLength == 0 || iMobileLength == 10) {
             resMobileValidate = true;
         }
         
         boolean offMobileValidate = false;
-        iMobileLength = tfOffMobileNumber.getText().length();
+        iMobileLength = tfOfficeMobile.getText().length();
         
         if (iMobileLength == 0 || iMobileLength == 10) {
             offMobileValidate = true;
         }
         
         boolean resEmailValidate = false;
-        if (tfResEmail.getText().trim().length() == 0 || bResEmailValidate) {
+        if (tfResidenceEmail.getText().trim().length() == 0 || bResEmailValidate) {
             resEmailValidate = true;
         }
         
         boolean offEmailValidate = false;
-        if (tfOffEmail.getText().trim().length() == 0 || bOffEmailValidate) {
+        if (tfOfficeEmail.getText().trim().length() == 0 || bOffEmailValidate) {
             offEmailValidate = true;
         }
         
@@ -1284,6 +1561,7 @@ public class DDEController implements Initializable {
     public void fetchFormData() {
 
         String donorType;
+        int iIndex;
 
         donorType = findDonorType();
 
@@ -1304,17 +1582,25 @@ public class DDEController implements Initializable {
                 education = tfEducation.getText(),
                 occupation = tfOccupation.getText(),
                 resaddress = taResidenceAddress.getText().trim(),
+                resarea = tfResidenceArea.getText().trim(),
+                resvillageortownorcity = tfResidenceVillageOrTownOrCity.getText().trim(),
+                restaluk = tfResidenceTaluk.getText().trim(),
+                resdistrict = tfResidenceDistrict.getText().trim(),
                 respincode = tfResidencePincode.getText(),
-                resstd = tfResLandlineStdCode.getText(),
-                resphone = tfResLandlineNumber.getText(),
-                resmob = tfResMobileNumber.getText(),
-                resemail = tfResEmail.getText(),
+                resstd = tfResidenceLandlineStdCode.getText(),
+                resphone = tfResidenceLandline.getText(),
+                resmob = tfResidenceMobile.getText(),
+                resemail = tfResidenceEmail.getText(),
                 offaddr = taOfficeAddress.getText().trim(),
+                offarea = tfOfficeArea.getText().trim(),
+                offvillageortownorcity = tfOfficeVillageOrTownOrCity.getText().trim(),
+                offtaluk = tfOfficeTaluk.getText().trim(),
+                offdistrict = tfOfficeDistrict.getText().trim(),
                 offpincode = tfOfficePincode.getText(),
-                offstd = tfOffLandlineStdCode.getText(),
-                offphone = tfOffLandlineNumber.getText(),
-                offmob = tfOffMobileNumber.getText(),
-                offemail = tfOffEmail.getText(),
+                offstd = tfOfficeLandlineStdCode.getText(),
+                offphone = tfOfficeLandline.getText(),
+                offmob = tfOfficeMobile.getText(),
+                offemail = tfOfficeEmail.getText(),
                 dod = tfRegistrationDate.getText(),
                 nsdod = tfSuggestedNextDonationDate.getText(),
                 will = donorType,
@@ -1324,76 +1610,61 @@ public class DDEController implements Initializable {
 
         if (resphone.length() > 0) {
             resphone = resstd + "-" + resphone;
-        } else {
-            resphone = "";
         }
         
         if (resmob.length() > 0) {
             /* Do not add ISD prefix when mobile not entered ! */
             resmob = "+91" + resmob;            
-        } else {
-            resmob = "";
-        }
-        
-        if (resemail.length() == 0) {
-            resemail = "";
         }
         
         if (offphone.length() > 0) {
             offphone = offstd + "-" + offphone;
-        } else {
-            offphone = "";
         }
         
         if (offmob.length() > 0) {
             /* Do not add ISD prefix when mobile not entered ! */
             offmob = "+91" + offmob;            
-        } else {
-            offmob = "";
         }
         
-        if (offemail.length() == 0) {
-            offemail = "";
-        }
-
-        if (respincode.length() == 0) {
-            respincode = "";
-        }
-        
-        if (offpincode.length() == 0) {
-            offpincode = "";
-        }
-        
+        iIndex = 0;
         //ab[0] = donorid;
-        formData[0] = name;
-        formData[1] = dob;
-        formData[2] = age;
-        formData[3] = bloodgroup;
-        formData[4] = gender;
-        formData[5] = spousename;
-        formData[6] = education;
-        formData[7] = occupation;
-        formData[8] = resaddress;
-        formData[9] = respincode;
-        formData[10] = resphone;
-        formData[11] = resmob;
-        formData[12] = resemail;
-        formData[13] = offaddr;
-        formData[14] = offpincode;
-        formData[15] = offphone;
-        formData[16] = offmob;
-        formData[17] = offemail;
+        formData[iIndex++] = name;
+        formData[iIndex++] = dob;
+        formData[iIndex++] = age;
+        formData[iIndex++] = bloodgroup;
+        formData[iIndex++] = gender;
+        formData[iIndex++] = spousename;
+        formData[iIndex++] = education;
+        formData[iIndex++] = occupation;
+        formData[iIndex++] = resaddress;
+        formData[iIndex++] = resarea;
+        formData[iIndex++] = resvillageortownorcity;
+        formData[iIndex++] = restaluk;
+        formData[iIndex++] = resdistrict;
+        formData[iIndex++] = respincode;
+        formData[iIndex++] = resphone;
+        formData[iIndex++] = resmob;
+        formData[iIndex++] = resemail;
+        formData[iIndex++] = offaddr;
+        formData[iIndex++] = offarea;
+        formData[iIndex++] = offvillageortownorcity;
+        formData[iIndex++] = offtaluk;
+        formData[iIndex++] = offdistrict;
+        formData[iIndex++] = offpincode;
+        formData[iIndex++] = offphone;
+        formData[iIndex++] = offmob;
+        formData[iIndex++] = offemail;
 
-        formData[18] = dod;
-        formData[19] = nsdod;
+        formData[iIndex++] = dod;
+        formData[iIndex++] = nsdod;
 
-        formData[20] = will;
-        formData[21] = will_bday;
-        formData[22] = will_wed_day;
-        formData[23] = will_oth_day;
-        formData[24] = will_term;
+        formData[iIndex++] = will;
+        formData[iIndex++] = will_bday;
+        formData[iIndex++] = will_wed_day;
+        formData[iIndex++] = will_oth_day;
+        formData[iIndex++] = will_term;
         
-        for (int mm = 0; mm < 25; mm++) {
+        for (int mm = 0; mm < formData.length; mm++) {
 
             System.out.print(formData[mm] + "\t");
         }
@@ -1449,26 +1720,26 @@ public class DDEController implements Initializable {
                 tfResidencePincode.setDisable(false);
                 tfResidencePincode.clear();
                 
-                tfResLandlineStdCode.setDisable(false);
-                tfResLandlineStdCode.clear();
+                tfResidenceLandlineStdCode.setDisable(false);
+                tfResidenceLandlineStdCode.clear();
                 
-                tfResLandlineNumber.setDisable(false);
-                tfResLandlineNumber.clear();
+                tfResidenceLandline.setDisable(false);
+                tfResidenceLandline.clear();
                 
-                tfResMobileNumber.setDisable(false);
-                tfResMobileNumber.clear();
+                tfResidenceMobile.setDisable(false);
+                tfResidenceMobile.clear();
                 
                 tfOfficePincode.setDisable(false);
                 tfOfficePincode.clear();
                 
-                tfOffLandlineStdCode.setDisable(false);
-                tfOffLandlineStdCode.clear();
+                tfOfficeLandlineStdCode.setDisable(false);
+                tfOfficeLandlineStdCode.clear();
                 
-                tfOffLandlineNumber.setDisable(false);
-                tfOffLandlineNumber.clear();
+                tfOfficeLandline.setDisable(false);
+                tfOfficeLandline.clear();
                 
-                tfOffMobileNumber.setDisable(false);
-                tfOffMobileNumber.clear();
+                tfOfficeMobile.setDisable(false);
+                tfOfficeMobile.clear();
             } else {
                 if (!tfName.isDisabled()) {
                     tfName.clear();
@@ -1486,32 +1757,32 @@ public class DDEController implements Initializable {
                     tfResidencePincode.clear();
                 }
 
-                if (!tfResLandlineStdCode.isDisabled()) {
-                    tfResLandlineStdCode.clear();
+                if (!tfResidenceLandlineStdCode.isDisabled()) {
+                    tfResidenceLandlineStdCode.clear();
                 }
 
-                if (!tfResLandlineNumber.isDisabled()) {
-                    tfResLandlineNumber.clear();
+                if (!tfResidenceLandline.isDisabled()) {
+                    tfResidenceLandline.clear();
                 }
 
-                if (!tfResMobileNumber.isDisabled()) {
-                    tfResMobileNumber.clear();
+                if (!tfResidenceMobile.isDisabled()) {
+                    tfResidenceMobile.clear();
                 }
 
                 if (!tfOfficePincode.isDisabled()) {
                     tfOfficePincode.clear();
                 }
 
-                if (!tfOffLandlineStdCode.isDisabled()) {
-                    tfOffLandlineStdCode.clear();
+                if (!tfOfficeLandlineStdCode.isDisabled()) {
+                    tfOfficeLandlineStdCode.clear();
                 }
 
-                if (!tfOffLandlineNumber.isDisabled()) {
-                    tfOffLandlineNumber.clear();
+                if (!tfOfficeLandline.isDisabled()) {
+                    tfOfficeLandline.clear();
                 }
 
-                if (!tfOffMobileNumber.isDisabled()) {
-                    tfOffMobileNumber.clear();
+                if (!tfOfficeMobile.isDisabled()) {
+                    tfOfficeMobile.clear();
                 }    
             }// ~else
     }
@@ -1520,12 +1791,21 @@ public class DDEController implements Initializable {
         
         tfOccupation.clear();
         tfEducation.clear();
+        
         taResidenceAddress.clear();
+        tfResidenceArea.clear();
+        tfResidenceVillageOrTownOrCity.clear();
+        tfResidenceTaluk.clear();
+        tfResidenceDistrict.clear();
+        tfResidenceEmail.clear();
         
-        tfResEmail.clear();
         taOfficeAddress.clear();
+        tfOfficeArea.clear();
+        tfOfficeVillageOrTownOrCity.clear();
+        tfOfficeTaluk.clear();
+        tfOfficeDistrict.clear();
+        tfOfficeEmail.clear();
         
-        tfOffEmail.clear();
         tfBirthday.clear();
         tfWedding.clear();
         tfOther.clear();
@@ -1719,36 +1999,36 @@ public class DDEController implements Initializable {
     
     public void setResidenceMobile(String strResMobile) {
         if (!strResMobile.trim().isEmpty()) {
-            tfResMobileNumber.setText(strResMobile);
-            tfResMobileNumber.setDisable(true);
+            tfResidenceMobile.setText(strResMobile);
+            tfResidenceMobile.setDisable(true);
         } else {
-            tfResMobileNumber.clear();
-            tfResMobileNumber.setDisable(false);
+            tfResidenceMobile.clear();
+            tfResidenceMobile.setDisable(false);
         }
     }
     
     public void setResidenceLandlineStdCode(String strResLandlineStdCode) {
         if (!strResLandlineStdCode.trim().isEmpty()) {
-            tfResLandlineStdCode.setText(strResLandlineStdCode);
-            tfResLandlineStdCode.setDisable(true);
+            tfResidenceLandlineStdCode.setText(strResLandlineStdCode);
+            tfResidenceLandlineStdCode.setDisable(true);
         } else {
-            tfResLandlineStdCode.clear();
-            tfResLandlineStdCode.setDisable(false);
+            tfResidenceLandlineStdCode.clear();
+            tfResidenceLandlineStdCode.setDisable(false);
         }
     }
     
     public void setResidenceLandlineNumber(String strResLandlineNumber) {
         if (!strResLandlineNumber.trim().isEmpty()) {
-            tfResLandlineNumber.setText(strResLandlineNumber);
-            tfResLandlineNumber.setDisable(true);
+            tfResidenceLandline.setText(strResLandlineNumber);
+            tfResidenceLandline.setDisable(true);
         } else {
-            tfResLandlineNumber.clear();
-            tfResLandlineNumber.setDisable(false);            
+            tfResidenceLandline.clear();
+            tfResidenceLandline.setDisable(false);            
         }
     }
     
     public void setResidenceEmail(String strResEmail) {
-        tfResEmail.setText(strResEmail);
+        tfResidenceEmail.setText(strResEmail);
     }
     
     public void setOfficeAddress(String strOffAddress) {
@@ -1767,36 +2047,36 @@ public class DDEController implements Initializable {
     
     public void setOfficeMobile(String strOffMobile) {
         if (strOffMobile.trim().length() > 0) {
-            tfOffMobileNumber.setText(strOffMobile);
-            tfOffMobileNumber.setDisable(true);
+            tfOfficeMobile.setText(strOffMobile);
+            tfOfficeMobile.setDisable(true);
         } else {
-            tfOffMobileNumber.clear();
-            tfOffMobileNumber.setDisable(false);
+            tfOfficeMobile.clear();
+            tfOfficeMobile.setDisable(false);
         }
     }
     
     public void setOfficeLandlineStdCode(String strOffLandlineStdCode) {
         if (strOffLandlineStdCode.trim().length() > 0) {
-            tfOffLandlineStdCode.setText(strOffLandlineStdCode);
-            tfOffLandlineStdCode.setDisable(true);
+            tfOfficeLandlineStdCode.setText(strOffLandlineStdCode);
+            tfOfficeLandlineStdCode.setDisable(true);
         } else {
-            tfOffLandlineStdCode.clear();
-            tfOffLandlineStdCode.setDisable(false);
+            tfOfficeLandlineStdCode.clear();
+            tfOfficeLandlineStdCode.setDisable(false);
         }
     }
     
     public void setOfficeLandlineNumber(String strOffLandlineNumber) {
         if (strOffLandlineNumber.trim().length() > 0) {
-            tfOffLandlineNumber.setText(strOffLandlineNumber);
-            tfOffLandlineNumber.setDisable(true);
+            tfOfficeLandline.setText(strOffLandlineNumber);
+            tfOfficeLandline.setDisable(true);
         } else {
-            tfOffLandlineNumber.clear();
-            tfOffLandlineNumber.setDisable(false);            
+            tfOfficeLandline.clear();
+            tfOfficeLandline.setDisable(false);            
         }
     }
     
     public void setOfficeEmail(String strOffEmail) {
-        tfOffEmail.setText(strOffEmail);
+        tfOfficeEmail.setText(strOffEmail);
     }
     
     public void setPeriodicity(String strPeriodicity) {

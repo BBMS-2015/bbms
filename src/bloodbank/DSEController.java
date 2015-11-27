@@ -475,13 +475,6 @@ public class DSEController implements Initializable {
         try {
             if (iRowCount > 0) {
                 olRow = null;
-                for (int k = 0; k < iRowCount; k++) {
-                    olRow = FXCollections.observableArrayList();
-                    for (int i = 0; i < iColumnCount; i++) {
-                        olRow.add(objDBApi.dseColumnValue(k, i));
-                    }
-                    olData.add(olRow);
-                }                
 
                 for (int i = 0; i < iColumnCount; i++) {
                     final int p = i;
@@ -493,11 +486,20 @@ public class DSEController implements Initializable {
                     });
                     tvSearchResultsTable.getColumns().addAll(col);
                 }
+                
+                for (int k = 0; k < iRowCount; k++) {
+                    olRow = FXCollections.observableArrayList();
+                    for (int i = 0; i < iColumnCount; i++) {
+                        olRow.add(objDBApi.dseColumnValue(k, i));
+                    }
+                    olData.add(olRow);
+                }                
             
                 tvSearchResultsTable.setItems(olData);
             }
         } catch (Exception e) {
-            System.out.println("Error on Building Data");
+            System.out.println("Error on Building Data : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
