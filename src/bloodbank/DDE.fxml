@@ -23,20 +23,22 @@
                         <Separator layoutX="12.0" layoutY="58.0" prefHeight="3.0" prefWidth="396.0" />
                         <Label layoutX="12.0" layoutY="65.0" prefHeight="15.0" prefWidth="51.0" text="Name*" />
                         <TextField fx:id="tfName" layoutX="12.0" layoutY="90.0" prefHeight="25.0" prefWidth="268.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="310.0" layoutY="65.0" prefHeight="15.0" prefWidth="42.0" text="DOB*" />
-                        <TextField fx:id="tfDOB" alignment="CENTER" layoutX="310.0" layoutY="90.0" prefHeight="25.0" prefWidth="100.0" stylesheets="@homeCSS.css" />
+                        <Label layoutX="315.0" layoutY="65.0" prefHeight="15.0" prefWidth="124.0" text="Registration Date*" />
+                        <TextField fx:id="tfRegistrationDate" alignment="CENTER" layoutX="325.0" layoutY="90.0" prefHeight="25.0" prefWidth="100.0" />
                         <Label layoutX="12.0" layoutY="130.0" prefHeight="15.0" prefWidth="64.0" text="Gender*" />
                         <ComboBox fx:id="cobxGender" layoutX="12.0" layoutY="155.0" prefHeight="25.0" prefWidth="140.0" stylesheets="@homeCSS.css" />
                         <Label layoutX="182.0" layoutY="130.0" prefHeight="15.0" prefWidth="90.0" text="Blood Group*" />
                         <ComboBox fx:id="cobxBloodGroup" layoutX="182.0" layoutY="155.0" prefHeight="25.0" prefWidth="109.0" />
-                        <Label layoutX="346.0" layoutY="130.0" prefHeight="15.0" prefWidth="28.0" text="Age" />
-                        <TextField fx:id="tfAge" alignment="CENTER" disable="true" editable="false" layoutX="339.0" layoutY="155.0" prefHeight="25.0" prefWidth="40.0" />
+                        <Label layoutX="325.0" layoutY="130.0" prefHeight="15.0" prefWidth="42.0" text="DOB*" />
+                        <TextField fx:id="tfDOB" alignment="CENTER" layoutX="325.0" layoutY="155.0" prefHeight="25.0" prefWidth="100.0" stylesheets="@homeCSS.css" />
                         <Label layoutX="12.0" layoutY="195.0" prefHeight="15.0" prefWidth="175.0" text="Father's / Spouse's Name*" />
                         <TextField fx:id="tfSpouseName" layoutX="12.0" layoutY="220.0" prefHeight="25.0" prefWidth="268.0" stylesheets="@homeCSS.css" />
+                        <Label focusTraversable="false" layoutX="362.0" layoutY="195.0" prefHeight="15.0" prefWidth="28.0" text="Age" />
+                        <TextField fx:id="tfAge" alignment="CENTER" disable="true" editable="false" layoutX="355.0" layoutY="220.0" prefHeight="25.0" prefWidth="40.0" />
                         <Label layoutX="12.0" layoutY="260.0" prefHeight="15.0" prefWidth="79.0" text="Education*" />
                         <TextField fx:id="tfEducation" layoutX="12.0" layoutY="285.0" prefHeight="25.0" prefWidth="180.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="230.0" layoutY="260.0" prefHeight="15.0" prefWidth="83.0" text="Occupation*" />
-                        <TextField fx:id="tfOccupation" layoutX="230.0" layoutY="285.0" prefHeight="25.0" prefWidth="180.0" stylesheets="@homeCSS.css" />
+                        <Label layoutX="245.0" layoutY="260.0" prefHeight="15.0" prefWidth="83.0" text="Occupation*" />
+                        <TextField fx:id="tfOccupation" layoutX="245.0" layoutY="285.0" prefHeight="25.0" prefWidth="180.0" stylesheets="@homeCSS.css" />
                         <Separator layoutX="453.0" layoutY="65.0" orientation="VERTICAL" prefHeight="238.0" prefWidth="4.0" />
                      </children>
                   </Group>
@@ -124,10 +126,8 @@
                         <Label layoutX="12.0" layoutY="195.0" prefHeight="15.0" prefWidth="100.0" text="Type of Donor*" />
                         <CheckBox fx:id="chbxWB" layoutX="12.0" layoutY="220.0" mnemonicParsing="false" stylesheets="@homeCSS.css" text="Whole Blood" />
                         <CheckBox fx:id="chbxAph" layoutX="172.0" layoutY="220.0" mnemonicParsing="false" stylesheets="@homeCSS.css" text="Apheresis" />
-                        <Label layoutX="12.0" layoutY="260.0" prefHeight="15.0" prefWidth="129.0" text="Registration Date*" />
-                        <TextField fx:id="tfRegistrationDate" alignment="CENTER" layoutX="12.0" layoutY="285.0" prefHeight="25.0" prefWidth="100.0" />
-                        <Label layoutX="188.0" layoutY="260.0" prefHeight="15.0" prefWidth="212.0" text="Suggested Next Donation Date*" />
-                        <TextField fx:id="tfSuggestedNextDonationDate" alignment="CENTER" layoutX="244.0" layoutY="285.0" prefHeight="25.0" prefWidth="100.0" />
+                        <Label layoutX="12.0" layoutY="260.0" prefHeight="15.0" prefWidth="143.0" text="Next Donation Date*" />
+                        <TextField fx:id="tfSuggestedNextDonationDate" alignment="CENTER" layoutX="12.0" layoutY="285.0" prefHeight="25.0" prefWidth="100.0" />
                      </children>
                   </Group>
                   <Label fx:id="lbMessage" alignment="CENTER" layoutX="45.0" layoutY="305.0" prefHeight="17.0" prefWidth="810.0" text="Either Residence or Office Address is required" textAlignment="CENTER" textFill="#e1d8d8" AnchorPane.topAnchor="305.0">

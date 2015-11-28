@@ -84,7 +84,7 @@ public class DBApi {
     
 
     String sDBServer = "localhost";
-    String sDBName = "bloodbank";
+    String sDBSchema = "bloodbank";
     String sUser = "root";
     String sPasswd = "rO0t@locAlH0st";
 
@@ -93,9 +93,9 @@ public class DBApi {
 
         try {
             String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-            String DB_URL = "jdbc:mysql://" + sDBServer + "/" + sDBName;
+            String DB_URL = "jdbc:mysql://" + sDBServer + "/" + sDBSchema;
             Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to database...");
+            System.out.println("Connecting to database server at " + sDBServer);
             conn = DriverManager.getConnection(DB_URL, sUser, sPasswd);
             //System.out.println("Verifying Credentials...");
 
@@ -139,7 +139,7 @@ public class DBApi {
         this.connect();
         System.out.println("insert");
         try {
-             sql = "INSERT INTO `" + sDBName + "`.`profile` (`donorid`, `name`, `dob`, `age`, `bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resphone`, `resmobile`, `email`, `officeaddress`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_term`) VALUES (";
+             sql = "INSERT INTO `" + sDBSchema + "`.`profile` (`donorid`, `name`, `dob`, `age`, `bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resphone`, `resmobile`, `email`, `officeaddress`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_term`) VALUES (";
             for (int p = 0; p < 23; p++) {
                 sql += "'" + arr[p] + "'";
                 if (p != 22) {
@@ -162,7 +162,7 @@ public class DBApi {
         this.connect();
         System.out.println("insert1");
         try {
-             sql = "INSERT INTO `" + sDBName + "`.`profile` ( `name`, `dob`, `age`,`bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resarea`, `resvillageortownorcity`, `restaluk`, `resdistrict`, `respincode`, `resphone`, `resmobile`, `resemail`, `officeaddress`, `officearea`, `officevillageortownorcity`, `officetaluk`, `officedistrict`, `officepincode`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_oth_day`, `will_term`) VALUES (";
+             sql = "INSERT INTO `" + sDBSchema + "`.`profile` ( `name`, `dob`, `age`,`bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resarea`, `resvillageortownorcity`, `restaluk`, `resdistrict`, `respincode`, `resphone`, `resmobile`, `resemail`, `officeaddress`, `officearea`, `officevillageortownorcity`, `officetaluk`, `officedistrict`, `officepincode`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_oth_day`, `will_term`) VALUES (";
             for (int p = 0; p < arr.length; p++) {
                 sql += "'" + arr[p] + "'";
                 if (p != arr.length - 1) {

@@ -201,6 +201,10 @@ public class DLUController implements Initializable {
                         return new SimpleStringProperty(param.getValue().get(p).toString());
                     }
                 });
+                
+                if (i == iColumnCount-1)
+                    col.setMinWidth(800);
+                
                 tvDonorTable.getColumns().addAll(col);
             }
 
