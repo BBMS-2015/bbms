@@ -82,12 +82,18 @@ public class DBApi {
     String[] AttributeNames;
     private int NumberOfRows, NumberOfColumns;
     
-
+///*
+    String sDBServer = "209.126.96.72";
+    String sDBSchema = "bloodbank";
+    String sUser = "Bloodbank";
+    String sPasswd = "Blo0db@nk600091";
+//*/    
+/*
     String sDBServer = "localhost";
     String sDBSchema = "bloodbank";
     String sUser = "root";
     String sPasswd = "rO0t@locAlH0st";
-
+*/
     //Connecting to database
     public void connect() {
 
@@ -215,56 +221,152 @@ public class DBApi {
     }
 
 //DLU - Get Data
-   public void dlu_fil(String val, String val1, String val2, String sListing) throws SQLException {
+   public void dlu_fil(String val, String val1, String val2, String sListing, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) throws SQLException {
 
         try {
             StringBuilder sbQueryStatement = new StringBuilder();
+            String sLogicAND = "";
             
             stmt = conn.createStatement();
             stmt.setQueryTimeout(10);
             
             sbQueryStatement.append(commonq);
             
-            if (!val.contains("All") || !val1.contains("All") || !val2.contains("All") || !sListing.contains("All")) {
-                sbQueryStatement.append(" where");
+            if (!val.contains("All") || !val1.contains("All") || !val2.contains("All") || !sListing.contains("All") || !sArea.contains("All") || !sVillageOrTownOrCity.contains("All") || sAddressKeyword.length() > 0) {
+                sbQueryStatement.append(" where ");
             
                 if (!val.contains("All")) {
-                    sbQueryStatement.append(" bloodgroup='").append(val).append("'");
+                    sbQueryStatement.append("bloodgroup='").append(val).append("'");
+                    sLogicAND = " AND ";
                 }
 
                 if (!val1.contains("All")) {
-
-                    if (!val.contains("All")) {
-                        sbQueryStatement.append(" AND");
-                    }
+                    sbQueryStatement.append(sLogicAND);
 
                     if (val1.equals("18-30")) {
-                        sbQueryStatement.append(" age BETWEEN 18 AND 30");
+                        sbQueryStatement.append("age BETWEEN 18 AND 30");
+                        sLogicAND = " AND ";
                     } else if (val1.equals("31-40")) {
-                        sbQueryStatement.append(" age BETWEEN 31 AND 40");
+                        sbQueryStatement.append("age BETWEEN 31 AND 40");
+                        sLogicAND = " AND ";
                     } else if (val1.equals("41-50")) {
-                        sbQueryStatement.append(" age BETWEEN 41 AND 50");
+                        sbQueryStatement.append("age BETWEEN 41 AND 50");
+                        sLogicAND = " AND ";
                     } else if (val1.equals("51-60")) {
-                        sbQueryStatement.append(" age BETWEEN 51 AND 60");                        
+                        sbQueryStatement.append("age BETWEEN 51 AND 60");                        
+                        sLogicAND = " AND ";
                     }
                 }
 
                 if (!val2.contains("All")) {
-                    if (!val.contains("All") || !val1.contains("All")) {
-                        sbQueryStatement.append(" AND");
-                    }
-
-                    sbQueryStatement.append(" gender='").append(val2).append("'");
+                    sbQueryStatement.append(sLogicAND);
+                    sbQueryStatement.append("gender='").append(val2).append("'");
+                    sLogicAND = " AND ";
                 }            
 
                 if (sListing.equals("Only Eligible Donors")) {
-                    if (!val.contains("All") || !val1.contains("All") || !val2.contains("All")) {
-                        sbQueryStatement.append(" AND");
-                    }
-
-                    sbQueryStatement.append(" ").append(commonq1);
+                    sbQueryStatement.append(sLogicAND);
+                    sbQueryStatement.append(commonq1);
                 }
-            }// ~if (!val.equals("null") || !val1.equals("null") || !val2.equals("null") || !sListing.equals("null"))
+
+                /*
+                 * When we perform an address based search,
+                 * we search for the address details to be ALL
+                 * under Residence or Office address, NOT a mix of both.
+                 * Therefore, the address search query is framed as below ...
+                 * (
+                 *  (
+                 *   (resarea='<sArea>') OR
+                 *   (officearea='<sArea>')
+                 *  )
+                 *  AND
+                 *  (
+                 *   (resvillageortownorcity='<sVillageOrTownOrCity>')
+                 *   (officevillageortownorcity='<sVillageOrTownOrCity>')
+                 *  )
+                 * )
+                 */
+                if (!sArea.contains("All") || !sVillageOrTownOrCity.contains("All")) {
+                    sbQueryStatement.append(sLogicAND);
+                    sbQueryStatement.append("(");
+                    /* Start of a new paranthesised expression*/
+                    sLogicAND = "";
+                }
+                
+                
+                if (!sArea.contains("All")) {
+                    sbQueryStatement.append("(");
+                    sbQueryStatement.append("resarea='").append(sArea).append("'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officearea='").append(sArea).append("'");
+                    sbQueryStatement.append(")");
+                    sLogicAND = " AND ";                    
+                }
+                
+                if (!sVillageOrTownOrCity.contains("All")) {                                    
+                    sbQueryStatement.append(sLogicAND);
+                    sbQueryStatement.append("(");
+                    sbQueryStatement.append("resvillageortownorcity='").append(sVillageOrTownOrCity).append("'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officevillageortownorcity='").append(sVillageOrTownOrCity).append("'");
+                    sbQueryStatement.append(")");
+                }
+
+                if (!sArea.contains("All") || !sVillageOrTownOrCity.contains("All")) {
+                    sbQueryStatement.append(")");
+                    sLogicAND = " AND ";
+                }                
+                
+                /*
+                 * When we perform an address keyword based search,
+                 * we search for the keyword to appear under any of
+                 * the Residence or Office address fields, including
+                 * Area, VillageOrTownOrCity, Taluk & District.
+                 * Therefore, the address keyword search query is framed as below ...
+                 * (
+                 *  //Residence address fields
+                 *  resaddress like '%<sAddressKeyword>%' OR
+                 *  resarea like '%<sAddressKeyword>%' OR
+                 *  resvillageortownorcity like '%<sAddressKeyword>%' OR
+                 *  restaluk like '%<sAddressKeyword>%' OR
+                 *  resdistrict like '%<sAddressKeyword>%' OR
+                 *  //Office address fields
+                 *  officeaddress like '%<sAddressKeyword>%' OR
+                 *  officearea like '%<sAddressKeyword>%' OR
+                 *  officevillageortownorcity like '%<sAddressKeyword>%' OR
+                 *  officetaluk like '%<sAddressKeyword>%' OR
+                 *  officedistrict like '%<sAddressKeyword>%' OR
+                 * )
+                 */
+                if (sAddressKeyword.length() > 0) {
+                    
+                    sbQueryStatement.append(sLogicAND);
+
+                    sbQueryStatement.append("(");
+                    
+                    sbQueryStatement.append("resaddress like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("resarea like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("resvillageortownorcity like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("restaluk like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("resdistrict like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officeaddress like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officearea like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officevillageortownorcity like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officetaluk like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officedistrict like '%").append(sAddressKeyword).append("%'");
+
+                    sbQueryStatement.append(")");
+                }// ~if (sArea.length() > 0 || sVillageOrTownOrCity.length() > 0 || sTaluk.length() > 0 || sDistrict.length() > 0)
+            }// ~if (!val.equals("null") || !val1.equals("null") || !val2.equals("null") || !sListing.equals("null") || sArea.length() > 0 || sVillageOrTownOrCity.length() > 0 || sTaluk.length() > 0 || sDistrict.length() > 0)
             
             System.out.println("Executing query : " + sbQueryStatement.toString());
             
@@ -337,26 +439,27 @@ public class DBApi {
     }
 
     //NUMBER OF COLUMNS
-    public int columns_fil(String val, String val1, String val2, String sListing) {
+    public int columns_fil(String sBloodGroup, String sAgeGroup, String sGender, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
         try {
-            this.dlu_fil(val, val1, val2, sListing);
+            this.dlu_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
         } catch (SQLException ex) {
             System.out.println("Error :"+ex);
         }
-
+        
         return NumberOfColumns;
     }
 
-    // NUMBER OF ROWS
-    public int rows_fil(String val, String val1, String val2, String sListing) {
+    // NUMBER OF ROWS  
+    public int rows_fil(String sBloodGroup, String sAgeGroup, String sGender, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
         try {
-            this.dlu_fil(val, val1, val2, sListing);
+            this.dlu_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
         } catch (SQLException ex) {
             System.out.println("Error :"+ex);
         }
+        
         return NumberOfRows;
     }
-    
+
     public int getColumnCount() {
         return NumberOfColumns;
     }
@@ -432,6 +535,43 @@ public class DBApi {
         return def_ans;
     }
 
+    public String[] getAreas() {
+        try {
+            stmt = conn.createStatement();
+            res = stmt.executeQuery("SELECT DISTINCT resarea, officearea FROM profile where resarea != \"\" AND officearea != \"\"");
+            List rowValues = new ArrayList();
+            while (res.next()) {
+                rowValues.add(res.getString("resarea"));
+                rowValues.add(res.getString("officearea"));
+            }
+            def_ans = (String[])rowValues.toArray(new String[rowValues.size()]);
+            res.close();
+            stmt.close();
+        } catch (SQLException e) {
+        }
+        
+        return def_ans;
+    }
+    
+    public String[] getVillagesOrTownsOrCities() {
+        try {
+            stmt = conn.createStatement();
+            res = stmt.executeQuery("SELECT DISTINCT resvillageortownorcity, officevillageortownorcity FROM profile where resvillageortownorcity != \"\" AND officevillageortownorcity != \"\"");
+            List rowValues = new ArrayList();
+            while (res.next()) {
+                rowValues.add(res.getString("resvillageortownorcity"));
+                rowValues.add(res.getString("officevillageortownorcity"));
+            }
+            def_ans = (String[])rowValues.toArray(new String[rowValues.size()]);
+            res.close();
+            stmt.close();            
+        } catch (SQLException e) {
+            
+        }
+        
+        return def_ans;
+    }
+    
     public String dlu_fil1(String val1, String val2) {
 
        String query="";

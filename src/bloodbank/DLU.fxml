@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="page2" prefHeight="745.0" prefWidth="959.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.DLUController">
+<AnchorPane fx:id="page2" prefHeight="745.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bloodbank.DLUController">
    <children>
-      <AnchorPane fx:id="anc_filter" prefHeight="26.0" prefWidth="428.0" AnchorPane.bottomAnchor="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <TableView fx:id="tvDonorTable" layoutY="41.0" prefHeight="315.0" prefWidth="425.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+      <AnchorPane fx:id="anc_filter" prefHeight="745.0" prefWidth="929.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ComboBox fx:id="cmbbxBloodGroupFilter" layoutX="14.0" layoutY="25.0" prefWidth="175.0" />
+            <ComboBox fx:id="cmbbxAgeGroupFilter" layoutX="213.0" layoutY="25.0" prefWidth="175.0" />
+            <ComboBox fx:id="cmbbxGenderFilter" layoutX="412.0" layoutY="25.0" prefWidth="175.0" />
+            <ComboBox fx:id="cmbbxEligibilityFilter" layoutX="611.0" layoutY="25.0" prefWidth="175.0" />
+            <Separator layoutX="800.0" layoutY="3.0" orientation="VERTICAL" prefHeight="145.0" />
+            <Button layoutX="837.0" layoutY="33.0" mnemonicParsing="false" onAction="#onSearchClicked" text="Apply" />
+            <Button layoutX="839.0" layoutY="91.0" mnemonicParsing="false" onAction="#onClearClicked" text="Clear" />
+            <ComboBox fx:id="cmbbxVillageOrTownOrCityFilter" layoutX="213.0" layoutY="100.0" prefWidth="205.0" />
+            <ComboBox fx:id="cmbbxAreaFilter" layoutX="14.0" layoutY="100.0" prefWidth="175.0" />
+            <Separator layoutX="4.0" layoutY="75.0" prefWidth="796.0" />
+            <TextField fx:id="tfAddressKeyword" layoutX="601.0" layoutY="100.0" prefHeight="25.0" prefWidth="185.0" />
+            <Label layoutX="454.0" layoutY="105.0" text="Address Keyword :">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <TableView fx:id="tvDonorTable" layoutY="150.0" prefHeight="581.0" prefWidth="929.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0" />
    </children>
 </AnchorPane>
