@@ -82,18 +82,12 @@ public class DBApi {
     String[] AttributeNames;
     private int NumberOfRows, NumberOfColumns;
     
-///*
-    String sDBServer = "209.126.96.72";
-    String sDBSchema = "bloodbank";
-    String sUser = "Bloodbank";
-    String sPasswd = "Blo0db@nk600091";
-//*/    
-/*
+
     String sDBServer = "localhost";
     String sDBSchema = "bloodbank";
     String sUser = "root";
     String sPasswd = "rO0t@locAlH0st";
-*/
+
     //Connecting to database
     public void connect() {
 
