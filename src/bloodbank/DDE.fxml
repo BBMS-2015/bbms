@@ -50,27 +50,29 @@
                            </font>
                         </Label>
                         <Separator layoutX="12.0" layoutY="397.0" prefHeight="3.0" prefWidth="876.0" />
-                        <Label layoutX="12.0" layoutY="410.0" prefHeight="15.0" prefWidth="58.0" text="Address" />
-                        <TextArea fx:id="taResidenceAddress" layoutX="12.0" layoutY="435.0" prefHeight="90.0" prefWidth="175.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="207.0" layoutY="410.0" prefHeight="15.0" prefWidth="42.0" text="Area" />
+                        <Label fx:id="lResidenceDoorNoAndStreetOrRoad" layoutX="12.0" layoutY="410.0" text="Door No, Street / Road" />
+                        <TextField fx:id="tfResidenceDoorNoAndStreetOrRoad" layoutX="12.0" layoutY="435.0" />
+                        <Label layoutX="12.0" layoutY="475.0" text="Building Name" />
+                        <TextField fx:id="tfResidenceBuildingName" layoutX="12.0" layoutY="500.0" />
+                        <Label layoutX="207.0" layoutY="410.0" text="Area" />
                         <TextField fx:id="tfResidenceArea" layoutX="207.0" layoutY="435.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="207.0" layoutY="475.0" text="Village / Town / City" />
+                        <Label fx:id="lResidenceVillageOrTownOrCity" layoutX="207.0" layoutY="475.0" text="Village / Town / City" />
                         <TextField fx:id="tfResidenceVillageOrTownOrCity" layoutX="207.0" layoutY="500.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="377.0" layoutY="410.0" prefHeight="15.0" prefWidth="42.0" text="Taluk" />
+                        <Label layoutX="377.0" layoutY="410.0" text="Taluk" />
                         <TextField fx:id="tfResidenceTaluk" layoutX="377.0" layoutY="435.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="377.0" layoutY="475.0" prefHeight="15.0" prefWidth="58.0" text="District" />
+                        <Label layoutX="377.0" layoutY="475.0" text="District" />
                         <TextField fx:id="tfResidenceDistrict" layoutX="377.0" layoutY="500.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="547.0" layoutY="475.0" prefHeight="15.0" prefWidth="57.0" text="Pincode" />
+                        <Label fx:id="lResidencePincode" layoutX="547.0" layoutY="475.0" text="Pincode" />
                         <TextField fx:id="tfResidencePincode" layoutX="547.0" layoutY="500.0" prefHeight="25.0" prefWidth="71.0" />
-                        <Label layoutX="547.0" layoutY="410.0" prefHeight="15.0" prefWidth="50.0" text="Mobile" />
+                        <Label layoutX="547.0" layoutY="410.0" text="Mobile" />
                         <Label layoutX="547.0" layoutY="440.0" text="+91" />
                         <Separator layoutX="581.0" layoutY="447.0" prefHeight="3.0" prefWidth="8.0" />
                         <TextField fx:id="tfResidenceMobile" layoutX="598.0" layoutY="435.0" prefHeight="25.0" prefWidth="103.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="721.0" layoutY="410.0" prefHeight="15.0" prefWidth="57.0" text="Landline" />
+                        <Label layoutX="721.0" layoutY="410.0" text="Landline" />
                         <TextField fx:id="tfResidenceLandlineStdCode" layoutX="721.0" layoutY="435.0" prefHeight="25.0" prefWidth="50.0" promptText="STD" />
                         <Separator layoutX="775.0" layoutY="446.0" prefHeight="3.0" prefWidth="8.0" />
                         <TextField fx:id="tfResidenceLandline" layoutX="789.0" layoutY="435.0" prefHeight="25.0" prefWidth="103.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="645.0" layoutY="475.0" prefHeight="15.0" prefWidth="100.0" text="Email Address" />
+                        <Label layoutX="645.0" layoutY="475.0" text="Email Address" />
                         <TextField fx:id="tfResidenceEmail" layoutX="645.0" layoutY="499.0" prefHeight="25.0" prefWidth="247.0" stylesheets="@homeCSS.css" />
                      </children>
                   </Group>
@@ -82,27 +84,29 @@
                            </font>
                         </Label>
                         <Separator layoutX="8.0" layoutY="397.0" prefHeight="3.0" prefWidth="884.0" />
-                        <Label layoutX="12.0" layoutY="410.0" prefHeight="15.0" prefWidth="58.0" text="Address" />
-                        <TextArea fx:id="taOfficeAddress" layoutX="12.0" layoutY="435.0" prefHeight="90.0" prefWidth="175.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="207.0" layoutY="410.0" prefHeight="15.0" prefWidth="42.0" text="Area" />
+                        <Label fx:id="lOfficeDoorNoAndStreetOrRoad" layoutX="12.0" layoutY="410.0" text="Door No, Street / Road" />
+                        <TextField fx:id="tfOfficeDoorNoAndStreetOrRoad" layoutX="12.0" layoutY="435.0" />
+                        <Label layoutX="12.0" layoutY="475.0" text="Building Name" />
+                        <TextField fx:id="tfOfficeBuildingName" layoutX="12.0" layoutY="500.0" />
+                        <Label layoutX="207.0" layoutY="410.0" text="Area" />
                         <TextField fx:id="tfOfficeArea" layoutX="207.0" layoutY="435.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="207.0" layoutY="475.0" text="Village / Town / City" />
+                        <Label fx:id="lOfficeVillageOrTownOrCity" layoutX="207.0" layoutY="475.0" text="Village / Town / City" />
                         <TextField fx:id="tfOfficeVillageOrTownOrCity" layoutX="207.0" layoutY="500.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="377.0" layoutY="410.0" prefHeight="15.0" prefWidth="42.0" text="Taluk" />
+                        <Label layoutX="377.0" layoutY="410.0" text="Taluk" />
                         <TextField fx:id="tfOfficeTaluk" layoutX="377.0" layoutY="435.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="377.0" layoutY="475.0" prefHeight="15.0" prefWidth="58.0" text="District" />
+                        <Label layoutX="377.0" layoutY="475.0" text="District" />
                         <TextField fx:id="tfOfficeDistrict" layoutX="377.0" layoutY="500.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label layoutX="547.0" layoutY="475.0" prefHeight="15.0" prefWidth="57.0" text="Pincode" />
+                        <Label fx:id="lOfficePincode" layoutX="547.0" layoutY="475.0" text="Pincode" />
                         <TextField fx:id="tfOfficePincode" layoutX="547.0" layoutY="500.0" prefHeight="25.0" prefWidth="71.0" />
-                        <Label layoutX="547.0" layoutY="410.0" prefHeight="15.0" prefWidth="50.0" text="Mobile" />
+                        <Label layoutX="547.0" layoutY="410.0" text="Mobile" />
                         <Label layoutX="547.0" layoutY="440.0" text="+91" />
                         <Separator layoutX="581.0" layoutY="447.0" prefHeight="3.0" prefWidth="8.0" />
                         <TextField fx:id="tfOfficeMobile" layoutX="598.0" layoutY="435.0" prefHeight="25.0" prefWidth="103.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="721.0" layoutY="410.0" prefHeight="15.0" prefWidth="57.0" text="Landline" />
+                        <Label layoutX="721.0" layoutY="410.0" text="Landline" />
                         <TextField fx:id="tfOfficeLandlineStdCode" layoutX="721.0" layoutY="435.0" prefHeight="25.0" prefWidth="50.0" promptText="STD" />
                         <Separator layoutX="775.0" layoutY="446.0" prefHeight="3.0" prefWidth="8.0" />
                         <TextField fx:id="tfOfficeLandline" layoutX="789.0" layoutY="435.0" prefHeight="25.0" prefWidth="103.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="645.0" layoutY="475.0" prefHeight="15.0" prefWidth="100.0" text="Email Address" />
+                        <Label layoutX="645.0" layoutY="475.0" text="Email Address" />
                         <TextField fx:id="tfOfficeEmail" layoutX="645.0" layoutY="499.0" prefHeight="25.0" prefWidth="247.0" stylesheets="@homeCSS.css" />
                      </children>
                   </Group>

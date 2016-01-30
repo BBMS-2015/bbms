@@ -72,10 +72,10 @@ public class DLUController implements Initializable {
 
         objDBApi = HomeController.getDBApi();
         data = FXCollections.observableArrayList();
-        anc();
     }    
 
     public void initFocus() {
+        anc();
     }
 
     private void anc() {

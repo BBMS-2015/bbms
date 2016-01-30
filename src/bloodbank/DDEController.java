@@ -77,15 +77,23 @@ public class DDEController implements Initializable {
     @FXML
     private TextField tfResidenceMobile;
     @FXML
-    private TextArea taResidenceAddress;
+    private Label lResidenceDoorNoAndStreetOrRoad;
+    @FXML
+    private TextField tfResidenceDoorNoAndStreetOrRoad;
+    @FXML
+    private TextField tfResidenceBuildingName;
     @FXML
     private TextField tfResidenceArea;
+    @FXML
+    private Label lResidenceVillageOrTownOrCity;
     @FXML
     private TextField tfResidenceVillageOrTownOrCity;
     @FXML
     private TextField tfResidenceTaluk;
     @FXML
     private TextField tfResidenceDistrict;
+    @FXML
+    private Label lResidencePincode;
     @FXML
     private TextField tfResidencePincode;
     @FXML
@@ -97,15 +105,23 @@ public class DDEController implements Initializable {
     @FXML
     private TextField tfOfficeMobile;
     @FXML
-    private TextArea taOfficeAddress;
+    private Label lOfficeDoorNoAndStreetOrRoad;
+    @FXML
+    private TextField tfOfficeDoorNoAndStreetOrRoad;
+    @FXML
+    private TextField tfOfficeBuildingName;
     @FXML
     private TextField tfOfficeArea;
+    @FXML
+    private Label lOfficeVillageOrTownOrCity;
     @FXML
     private TextField tfOfficeVillageOrTownOrCity;
     @FXML
     private TextField tfOfficeTaluk;
     @FXML
     private TextField tfOfficeDistrict;    
+    @FXML
+    private Label lOfficePincode;
     @FXML
     private TextField tfOfficePincode;
     @FXML
@@ -141,7 +157,7 @@ public class DDEController implements Initializable {
     private Button btnReset;
 
     /*Navin code */
-    private String[] formData = new String[33];
+    private String[] formData = new String[37];
     private int check;
     protected boolean willingnessChoice = false;
     /* WB to be selected by default */
@@ -155,13 +171,15 @@ public class DDEController implements Initializable {
     private boolean bSpouseNameValidate;
     private boolean bRegistrationDateValidate;
     private boolean bSuggestedNextDonationDateValidate;
-    private boolean bResidenceAddressValidate;
+    private boolean bResidenceDoorNoAndStreetOrRoadValidate;
+    private boolean bResidenceBuildingNameValidate;
     private boolean bResidenceAreaValidate;
     private boolean bResidenceVillageOrTownOrCityValidate;
     private boolean bResidenceTalukValidate;
     private boolean bResidenceDistrictValidate;
     private boolean bResidencePincodeValidate;
-    private boolean bOfficeAddressValidate;
+    private boolean bOfficeDoorNoAndStreetOrRoadValidate;
+    private boolean bOfficeBuildingNameValidate;
     private boolean bOfficeAreaValidate;
     private boolean bOfficeVillageOrTownOrCityValidate;
     private boolean bOfficeTalukValidate;
@@ -207,13 +225,15 @@ public class DDEController implements Initializable {
         bSpouseNameValidate = false;
         bRegistrationDateValidate = false;
         bSuggestedNextDonationDateValidate = false;
-        bResidenceAddressValidate = false;
+        bResidenceDoorNoAndStreetOrRoadValidate = false;
+        bResidenceBuildingNameValidate = false;
         bResidenceAreaValidate = false;
         bResidenceVillageOrTownOrCityValidate = false;
         bResidenceTalukValidate = false;
         bResidenceDistrictValidate = false;
         bResidencePincodeValidate = false;
-        bOfficeAddressValidate = false;
+        bOfficeDoorNoAndStreetOrRoadValidate = false;
+        bOfficeBuildingNameValidate = false;
         bOfficeAreaValidate = false;
         bOfficeVillageOrTownOrCityValidate = false;
         bOfficeTalukValidate = false;
@@ -910,58 +930,72 @@ public class DDEController implements Initializable {
             }
         });
         
-        taResidenceAddress.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            
-            @Override
-            public void handle(KeyEvent objKeyEvent) {
-                if (objKeyEvent.getCode() == KeyCode.TAB) {
-                    TextAreaSkin objTextAreaSkin = (TextAreaSkin) taResidenceAddress.getSkin();
-                    if (objTextAreaSkin.getBehavior() instanceof TextAreaBehavior) {
-                        TextAreaBehavior objTextAreaBehavior = (TextAreaBehavior) objTextAreaSkin.getBehavior();
-                        if (objKeyEvent.isControlDown()) {
-                            objTextAreaBehavior.callAction("InsertTab");
-                        } else if (objKeyEvent.isShiftDown()) {
-                            objTextAreaBehavior.callAction("TraversePrevious");                            
-                        } else {
-                            objTextAreaBehavior.callAction("TraverseNext");
-                        }
-                        objKeyEvent.consume();
-                    }
-                }
-            }
-        });
-        
-        taResidenceAddress.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        tfResidenceDoorNoAndStreetOrRoad.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.length_Validation(100));
+
+        tfResidenceDoorNoAndStreetOrRoad.focusedProperty().addListener(new ChangeListener<Boolean>() {
             
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (!newPropertyValue) {
-                    if (taResidenceAddress.getText().trim().length() > 0) {
-                        taResidenceAddress.setText(capitalizeFirstLetterOfEachWord(taResidenceAddress.getText().trim()));
+                    if (tfResidenceDoorNoAndStreetOrRoad.getText().trim().length() > 0) {
+                        tfResidenceDoorNoAndStreetOrRoad.setText(capitalizeFirstLetterOfEachWord(tfResidenceDoorNoAndStreetOrRoad.getText().trim()));
                     }
                 }
             }
         });
 
-        taResidenceAddress.textProperty().addListener(new ChangeListener<String>() {
+        tfResidenceDoorNoAndStreetOrRoad.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-                if (taResidenceAddress.getText().trim().length() == 0) {
-                    if (bResidenceAddressValidate) {
-                        bResidenceAddressValidate = false;
+                if (tfResidenceDoorNoAndStreetOrRoad.getText().trim().length() == 0) {
+                    if (bResidenceDoorNoAndStreetOrRoadValidate) {
+                        bResidenceDoorNoAndStreetOrRoadValidate = false;
                         callValidation();
                     }
                 } else {
-                    if (!bResidenceAddressValidate) {
-                        bResidenceAddressValidate = true;
+                    if (!bResidenceDoorNoAndStreetOrRoadValidate) {
+                        bResidenceDoorNoAndStreetOrRoadValidate = true;
                         callValidation();
                     }
                 }
             }
         });
         
+        tfResidenceBuildingName.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.length_Validation(50));
+
+        tfResidenceBuildingName.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfResidenceBuildingName.getText().trim().length() > 0) {
+                        tfResidenceBuildingName.setText(capitalizeFirstLetterOfEachWord(tfResidenceBuildingName.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfResidenceBuildingName.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfResidenceBuildingName.getText().trim().length() == 0) {
+                    if (bResidenceBuildingNameValidate) {
+                        bResidenceBuildingNameValidate = false;
+                        callValidation();
+                    }
+                } else {
+                    if (!bResidenceBuildingNameValidate) {
+                        bResidenceBuildingNameValidate = true;
+                        callValidation();
+                    }
+                }
+            }
+        });
+
         tfResidenceArea.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
 
         tfResidenceArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -1154,57 +1188,70 @@ public class DDEController implements Initializable {
 
         });
         
-        taOfficeAddress.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent objKeyEvent) {
-                if (objKeyEvent.getCode() == KeyCode.TAB) {
-                    TextAreaSkin objTextAreaSkin = (TextAreaSkin) taOfficeAddress.getSkin();
-                    if (objTextAreaSkin.getBehavior() instanceof TextAreaBehavior) {
-                        TextAreaBehavior objTextAreaBehavior = (TextAreaBehavior) objTextAreaSkin.getBehavior();
-                        if (objKeyEvent.isControlDown()) {
-                            objTextAreaBehavior.callAction("InsertTab");
-                        } else if (objKeyEvent.isShiftDown()) {
-                            objTextAreaBehavior.callAction("TraversePrevious");                            
-                        } else {
-                            objTextAreaBehavior.callAction("TraverseNext");
-                        }
-                        objKeyEvent.consume();
-                    }
-                }
-            }
-        });
+        tfOfficeDoorNoAndStreetOrRoad.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.length_Validation(100));
 
-        taOfficeAddress.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        tfOfficeDoorNoAndStreetOrRoad.focusedProperty().addListener(new ChangeListener<Boolean>() {
             
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (!newPropertyValue) {
-                    if (taOfficeAddress.getText().trim().length() > 0) {
-                        taOfficeAddress.setText(capitalizeFirstLetterOfEachWord(taOfficeAddress.getText().trim()));
+                    if (tfOfficeDoorNoAndStreetOrRoad.getText().trim().length() > 0) {
+                        tfOfficeDoorNoAndStreetOrRoad.setText(capitalizeFirstLetterOfEachWord(tfOfficeDoorNoAndStreetOrRoad.getText().trim()));
                     }
                 }
             }
         });
 
-        taOfficeAddress.textProperty().addListener(new ChangeListener<String>() {
+        tfOfficeDoorNoAndStreetOrRoad.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-                ObservableList<String> styleClass = taOfficeAddress.getStyleClass();
-                if (taOfficeAddress.getText().trim().length() == 0) {
-                    if (bOfficeAddressValidate) {
-                        bOfficeAddressValidate = false;
+                ObservableList<String> styleClass = tfOfficeDoorNoAndStreetOrRoad.getStyleClass();
+                if (tfOfficeDoorNoAndStreetOrRoad.getText().trim().length() == 0) {
+                    if (bOfficeDoorNoAndStreetOrRoadValidate) {
+                        bOfficeDoorNoAndStreetOrRoadValidate = false;
                         callValidation();
                     }
                 } else {
-                    if (!bOfficeAddressValidate) {
-                        bOfficeAddressValidate = true;
+                    if (!bOfficeDoorNoAndStreetOrRoadValidate) {
+                        bOfficeDoorNoAndStreetOrRoadValidate = true;
                         callValidation();
                     }
                 }
             }
 
+        });
+
+        tfOfficeBuildingName.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.length_Validation(50));
+
+        tfOfficeBuildingName.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!newPropertyValue) {
+                    if (tfOfficeBuildingName.getText().trim().length() > 0) {
+                        tfOfficeBuildingName.setText(capitalizeFirstLetterOfEachWord(tfOfficeBuildingName.getText().trim()));
+                    }
+                }
+            }
+        });
+
+        tfOfficeBuildingName.textProperty().addListener(new ChangeListener<String>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (tfOfficeBuildingName.getText().trim().length() == 0) {
+                    bOfficeBuildingNameValidate = false;
+                    callValidation();
+                } else {
+                    if (!bOfficeBuildingNameValidate) {
+                        bOfficeBuildingNameValidate = true;
+                        callValidation();                        
+                    }
+                }
+            }
         });
 
         tfOfficeArea.addEventFilter(KeyEvent.KEY_TYPED, ProjectUtils.char_Validation(100));
@@ -1422,28 +1469,67 @@ public class DDEController implements Initializable {
         boolean dobValidate = !ProjectUtils.dateValidation(tfDOB.getText().trim());           
         boolean chbxOtherValidate = chbxOther.isSelected();
         boolean chbxWeddingValidate = chbxWedding.isSelected();
-        int iAddressLength, iPincodeLength;
+        int iDoorNoAndStreetOrRoadLength, iVillageOrTownOrCityLength, iPincodeLength;
         int iLandlineLength, iLandlineStdCodeLength;
         int iMobileLength;
         
         boolean resAddrValidate = false;
-        iAddressLength = taResidenceAddress.getText().trim().length();
+        iDoorNoAndStreetOrRoadLength = tfResidenceDoorNoAndStreetOrRoad.getText().trim().length();
+        iVillageOrTownOrCityLength = tfResidenceVillageOrTownOrCity.getText().trim().length();
         iPincodeLength = tfResidencePincode.getText().length();
-        
-        if (iAddressLength == 0 && iPincodeLength == 0) {
+
+        if (iDoorNoAndStreetOrRoadLength == 0 && iVillageOrTownOrCityLength == 0 && iPincodeLength == 0) {
             resAddrValidate = true;
-        } else if (iAddressLength > 0 && iPincodeLength == 6) {
+
+            lResidenceDoorNoAndStreetOrRoad.setText(lResidenceDoorNoAndStreetOrRoad.getText().replace('*', '\b'));
+            lResidenceVillageOrTownOrCity.setText(lResidenceVillageOrTownOrCity.getText().replace('*', '\b'));
+            lResidencePincode.setText(lResidencePincode.getText().replace('*', '\b'));
+        } else if (iDoorNoAndStreetOrRoadLength > 0 && iVillageOrTownOrCityLength > 0 && iPincodeLength == 6) {
             resAddrValidate = true;
+        } else {
+            /* Dynamically mark the mandatory fields with "*"*/
+            
+            if (!lResidenceDoorNoAndStreetOrRoad.getText().endsWith("*")) {
+                lResidenceDoorNoAndStreetOrRoad.setText(lResidenceDoorNoAndStreetOrRoad.getText().concat("*"));
+            }
+            
+            if (!lResidenceVillageOrTownOrCity.getText().endsWith("*")) {
+                lResidenceVillageOrTownOrCity.setText(lResidenceVillageOrTownOrCity.getText().concat("*"));
+            }
+            
+            if (!lResidencePincode.getText().endsWith("*")) {
+                lResidencePincode.setText(lResidencePincode.getText().concat("*"));
+            }            
         }
         
+        
         boolean offAddrValidate = false;
-        iAddressLength = taOfficeAddress.getText().trim().length();
+        iDoorNoAndStreetOrRoadLength = tfOfficeDoorNoAndStreetOrRoad.getText().trim().length();
+        iVillageOrTownOrCityLength = tfOfficeVillageOrTownOrCity.getText().trim().length();
         iPincodeLength = tfOfficePincode.getText().length();
         
-        if (iAddressLength == 0 && iPincodeLength == 0) {
+        if (iDoorNoAndStreetOrRoadLength == 0 && iVillageOrTownOrCityLength == 0 && iPincodeLength == 0) {
             offAddrValidate = true;
-        } else if (iAddressLength > 0 && iPincodeLength == 6) {
+
+            lOfficeDoorNoAndStreetOrRoad.setText(lOfficeDoorNoAndStreetOrRoad.getText().replace('*', '\b'));
+            lOfficeVillageOrTownOrCity.setText(lOfficeVillageOrTownOrCity.getText().replace('*', '\b'));
+            lOfficePincode.setText(lOfficePincode.getText().replace('*', '\b'));            
+        } else if (iDoorNoAndStreetOrRoadLength > 0 && iVillageOrTownOrCityLength > 0 && iPincodeLength == 6) {
             offAddrValidate = true;
+        } else {
+            /* Dynamically mark the mandatory fields with "*"*/
+
+            if (!lOfficeDoorNoAndStreetOrRoad.getText().endsWith("*")) {
+                lOfficeDoorNoAndStreetOrRoad.setText(lOfficeDoorNoAndStreetOrRoad.getText().concat("*"));
+            }
+            
+            if (!lOfficeVillageOrTownOrCity.getText().endsWith("*")) {
+                lOfficeVillageOrTownOrCity.setText(lOfficeVillageOrTownOrCity.getText().concat("*"));
+            }
+            
+            if (!lOfficePincode.getText().endsWith("*")) {
+                lOfficePincode.setText(lOfficePincode.getText().concat("*"));
+            }            
         }
 
         boolean resPhoneValidate = false;
@@ -1504,7 +1590,7 @@ public class DDEController implements Initializable {
         }
         
         boolean mandatoryFieldsValidate = bNameValidate && bDOBValidate && bBloodGroupValidate && bSpouseNameValidate && bEducationValidate && bOccupationValidate && bDonorTypeValidate && bRegistrationDateValidate && bSuggestedNextDonationDateValidate;
-        boolean donorContactAddressValidate = ((bResidenceAddressValidate && bResidencePincodeValidate) || (bOfficeAddressValidate && bOfficePincodeValidate));
+        boolean donorContactAddressValidate = ((bResidenceDoorNoAndStreetOrRoadValidate && bResidenceVillageOrTownOrCityValidate && bResidencePincodeValidate) || (bOfficeDoorNoAndStreetOrRoadValidate && bOfficeVillageOrTownOrCityValidate && bOfficePincodeValidate));
         boolean bDonorContactAddressIncompleteValidate = resAddrValidate && offAddrValidate;
         boolean donorContactsValidate = (bResLandlineStdCodeValidate && bResLandlineNumberValidate) || bResMobileNumberValidate || bResEmailValidate || (bOffLandlineStdCodeValidate && bOffLandlineNumberValidate) || bOffMobileNumberValidate || bOffEmailValidate;
         boolean bDonorContactsIncompleteValidate = resPhoneValidate && offPhoneValidate && resMobileValidate && offMobileValidate && resEmailValidate && offEmailValidate;
@@ -1527,9 +1613,9 @@ public class DDEController implements Initializable {
                 s.append("Invalid wedding/other date fields");
             } else if (!donorContactAddressValidate || !bDonorContactAddressIncompleteValidate) {
                 if (!resAddrValidate) {
-                    s.append("Please enter both address & pincode for residence");
+                    s.append("Mandatory residence address fields(*) not filled");
                 } else if (!offAddrValidate) {
-                    s.append("Please enter both address & pincode for office");
+                    s.append("Mandatory office address fields(*) not filled");
                 } else {
                     s.append("Either residence or office address must be entered");
                 }
@@ -1581,7 +1667,15 @@ public class DDEController implements Initializable {
         String spousename = tfSpouseName.getText(),
                 education = tfEducation.getText(),
                 occupation = tfOccupation.getText(),
-                resaddress = taResidenceAddress.getText().trim(),
+                resdoornoandstreetorroad = tfResidenceDoorNoAndStreetOrRoad.getText().trim(),
+                resbuildingname = tfResidenceBuildingName.getText().trim(),
+                /*
+                 * Till we remove the field from the table
+                 * we need to pass default value for this
+                 * field, an empty string. Otherwise, DB insert
+                 * would fail.
+                 */
+                resaddress = "",
                 resarea = tfResidenceArea.getText().trim(),
                 resvillageortownorcity = tfResidenceVillageOrTownOrCity.getText().trim(),
                 restaluk = tfResidenceTaluk.getText().trim(),
@@ -1591,7 +1685,15 @@ public class DDEController implements Initializable {
                 resphone = tfResidenceLandline.getText(),
                 resmob = tfResidenceMobile.getText(),
                 resemail = tfResidenceEmail.getText(),
-                offaddr = taOfficeAddress.getText().trim(),
+                offdoornoandstreetorroad = tfOfficeDoorNoAndStreetOrRoad.getText().trim(),
+                offbuildingname = tfOfficeBuildingName.getText().trim(),
+                /*
+                 * Till we remove the field from the table
+                 * we need to pass default value for this
+                 * field, an empty string. Otherwise, DB insert
+                 * would fail.
+                 */
+                offaddr = "",
                 offarea = tfOfficeArea.getText().trim(),
                 offvillageortownorcity = tfOfficeVillageOrTownOrCity.getText().trim(),
                 offtaluk = tfOfficeTaluk.getText().trim(),
@@ -1637,6 +1739,8 @@ public class DDEController implements Initializable {
         formData[iIndex++] = education;
         formData[iIndex++] = occupation;
         formData[iIndex++] = resaddress;
+        formData[iIndex++] = resdoornoandstreetorroad;
+        formData[iIndex++] = resbuildingname;
         formData[iIndex++] = resarea;
         formData[iIndex++] = resvillageortownorcity;
         formData[iIndex++] = restaluk;
@@ -1646,6 +1750,8 @@ public class DDEController implements Initializable {
         formData[iIndex++] = resmob;
         formData[iIndex++] = resemail;
         formData[iIndex++] = offaddr;
+        formData[iIndex++] = offdoornoandstreetorroad;
+        formData[iIndex++] = offbuildingname;
         formData[iIndex++] = offarea;
         formData[iIndex++] = offvillageortownorcity;
         formData[iIndex++] = offtaluk;
@@ -1792,14 +1898,16 @@ public class DDEController implements Initializable {
         tfOccupation.clear();
         tfEducation.clear();
         
-        taResidenceAddress.clear();
+        tfResidenceDoorNoAndStreetOrRoad.clear();
+        tfResidenceBuildingName.clear();
         tfResidenceArea.clear();
         tfResidenceVillageOrTownOrCity.clear();
         tfResidenceTaluk.clear();
         tfResidenceDistrict.clear();
         tfResidenceEmail.clear();
         
-        taOfficeAddress.clear();
+        tfOfficeDoorNoAndStreetOrRoad.clear();
+        tfOfficeBuildingName.clear();
         tfOfficeArea.clear();
         tfOfficeVillageOrTownOrCity.clear();
         tfOfficeTaluk.clear();
@@ -1983,10 +2091,14 @@ public class DDEController implements Initializable {
         tfOccupation.setText(strOccupation);
     }
     
-    public void setResidenceAddress(String strResAddress) {
-        taResidenceAddress.setText(strResAddress);
+    public void setResidenceDoorNoAndStreetOrRoad(String strResDoorNoAndStreetOrRoad) {
+        tfResidenceDoorNoAndStreetOrRoad.setText(strResDoorNoAndStreetOrRoad);
     }
     
+    public void setResidenceBuildingName(String strResBuildingName) {
+        tfResidenceBuildingName.setText(strResBuildingName);
+    }
+
     public void setResidencePincode(String strResPincode) {
         if (!strResPincode.trim().isEmpty()) {
             tfResidencePincode.setText(strResPincode);
@@ -2031,10 +2143,14 @@ public class DDEController implements Initializable {
         tfResidenceEmail.setText(strResEmail);
     }
     
-    public void setOfficeAddress(String strOffAddress) {
-        taOfficeAddress.setText(strOffAddress);
+    public void setOfficeDoorNoAndStreetOrRoad(String strOffDoorNoAndStreetOrRoad) {
+        tfOfficeDoorNoAndStreetOrRoad.setText(strOffDoorNoAndStreetOrRoad);
     }
     
+    public void setOfficeBuildingName(String strOffBuildingName) {
+        tfOfficeBuildingName.setText(strOffBuildingName);
+    }
+
     public void setOfficePincode(String strOffPincode) {
         if (strOffPincode.trim().length() > 0) {
             tfOfficePincode.setText(strOffPincode);

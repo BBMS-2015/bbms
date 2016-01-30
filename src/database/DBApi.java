@@ -29,18 +29,45 @@ public class DBApi {
                      "NULLIF(resphone, ''), NULLIF(officephone, ''), " +
                      "NULLIF(resemail, ''), NULLIF(officeemail, '')) as contact, " +
                      "donor_type, " +
-                     "coalesce(concat(resaddress, IF(length(resaddress) > 0, ',\\n', NULL), " +
-                                     "resarea, IF(length(resarea) > 0, ',\\n', ''), " +
-                                     "resvillageortownorcity, IF(length(resvillageortownorcity) > 0, ',\\n', ''), " +
-                                     "restaluk, IF(length(restaluk) > 0, ',\\n', ''), " +
-                                     "resdistrict, IF(length(resdistrict) > 0, ',\\n', ''), " +
-                                     "respincode), " +
-                              "concat(officeaddress, IF(length(officeaddress) > 0, ',\\n', NULL), " +
-                                     "officearea, IF(length(officearea) > 0, ',\\n', ''), " +
-                                     "officevillageortownorcity, IF(length(officevillageortownorcity) > 0, ',\\n', ''), " +
-                                     "officetaluk, IF(length(officetaluk) > 0, ',\\n', ''), " +
-                                     "officedistrict, IF(length(officedistrict) > 0, ',\\n', ''), " +
-                                     "officepincode)) as address " +
+                     "coalesce(concat(resaddress, " +
+                                     "IF(length(resaddress) > 0, " +
+                                        "',\\n', " +
+                                        "concat(resdoornoandstreetorroad, " +
+                                               "IF(length(resdoornoandstreetorroad) > 0, ',\\n', ''), " +
+                                               "resbuildingname, " +
+                                               "IF(length(resbuildingname) > 0, ',\\n', '')" +
+                                              ")" +
+                                       "), " +
+                                     "resarea, " +
+                                     "IF(length(resarea) > 0, ',\\n', ''), " +
+                                     "resvillageortownorcity, " +
+                                     "IF(length(resvillageortownorcity) > 0, ',\\n', ''), " +
+                                     "restaluk, " +
+                                     "IF(length(restaluk) > 0, ',\\n', ''), " +
+                                     "resdistrict, " +
+                                     "IF(length(resdistrict) > 0, ',\\n', ''), " +
+                                     "respincode" +
+                                    "), " +
+                              "concat(officeaddress, " +
+                                     "IF(length(officeaddress) > 0, " +
+                                        "',\\n', " +
+                                        "concat(officedoornoandstreetorroad, " +
+                                               "IF(length(officedoornoandstreetorroad) > 0, ',\\n', ''), " +
+                                               "officebuildingname, " +
+                                               "IF(length(officebuildingname) > 0, ',\\n', '')" +
+                                              ")" +
+                                       "), " +
+                                     "officearea, " +
+                                     "IF(length(officearea) > 0, ',\\n', ''), " +
+                                     "officevillageortownorcity, " +
+                                     "IF(length(officevillageortownorcity) > 0, ',\\n', ''), " +
+                                     "officetaluk, " +
+                                     "IF(length(officetaluk) > 0, ',\\n', ''), " +
+                                     "officedistrict, " +
+                                     "IF(length(officedistrict) > 0, ',\\n', ''), " +
+                                     "officepincode" +
+                                    ")" +
+                             ") as address " +
                      "FROM profile";
     String commonq1= "(TIMESTAMPDIFF(DAY,DATE_FORMAT(STR_TO_DATE(nsdod,'%d/%m/%Y'),'%Y-%m-%d'),DATE_FORMAT(SYSDATE(),'%Y-%m-%d')) >= 0)";
     
@@ -49,19 +76,45 @@ public class DBApi {
                          "gender as 'Gender', bloodgroup as 'BloodGroup', " +
                          "resmobile as 'ResMobile', officemobile as 'OffMobile', " +
                          "resphone as 'ResPhone', officephone as 'OffPhone', " +
-                         "concat(resaddress, IF(length(resaddress) > 0, ',\\n', ''), " +
-                                "resarea, IF(length(resarea) > 0, ',\\n', ''), " +
-                                "resvillageortownorcity, IF(length(resvillageortownorcity) > 0, ',\\n', ''), " +
-                                "restaluk, IF(length(restaluk) > 0, ',\\n', ''), " +
-                                "resdistrict, IF(length(resdistrict) > 0, ',\\n', ''), " +
-                                "respincode) " +
+                         "concat(resaddress, " +
+                                "IF(length(resaddress) > 0, " +
+                                   "',\\n', " +
+                                   "concat(resdoornoandstreetorroad, " +
+                                          "IF(length(resdoornoandstreetorroad) > 0, ',\\n', ''), " +
+                                          "resbuildingname, " +
+                                          "IF(length(resbuildingname) > 0, ',\\n', '')" +
+                                         ")" +
+                                  "), " +
+                                "resarea, " +
+                                "IF(length(resarea) > 0, ',\\n', ''), " +
+                                "resvillageortownorcity, " +
+                                "IF(length(resvillageortownorcity) > 0, ',\\n', ''), " +
+                                "restaluk, " +
+                                "IF(length(restaluk) > 0, ',\\n', ''), " +
+                                "resdistrict, " +
+                                "IF(length(resdistrict) > 0, ',\\n', ''), " +
+                                "respincode" +
+                               ") " +
                          "as ResAddr, " +
-                         "concat(officeaddress, IF(length(officeaddress) > 0, ',\\n', ''), " +
-                                "officearea, IF(length(officearea) > 0, ',\\n', ''), " +
-                                "officevillageortownorcity, IF(length(officevillageortownorcity) > 0, ',\\n', ''), " +
-                                "officetaluk, IF(length(officetaluk) > 0, ',\\n', ''), " +
-                                "officedistrict, IF(length(officedistrict) > 0, ',\\n', ''), " +
-                                "officepincode) " +
+                         "concat(officeaddress, " +
+                                "IF(length(officeaddress) > 0, " +
+                                   "',\\n', " +
+                                   "concat(officedoornoandstreetorroad, " +
+                                          "IF(length(officedoornoandstreetorroad) > 0, ',\\n', ''), " +
+                                          "officebuildingname, " +
+                                          "IF(length(officebuildingname) > 0, ',\\n', '')" +
+                                         ")" +
+                                  "), " +
+                                "officearea, " +
+                                "IF(length(officearea) > 0, ',\\n', ''), " +
+                                "officevillageortownorcity, " +
+                                "IF(length(officevillageortownorcity) > 0, ',\\n', ''), " +
+                                "officetaluk, " +
+                                "IF(length(officetaluk) > 0, ',\\n', ''), " +
+                                "officedistrict, " +
+                                "IF(length(officedistrict) > 0, ',\\n', ''), " +
+                                "officepincode" +
+                               ") " +
                          "as OffAddr " +
                          "FROM profile";
     
@@ -82,12 +135,12 @@ public class DBApi {
     String[] AttributeNames;
     private int NumberOfRows, NumberOfColumns;
     
-
+///*
     String sDBServer = "localhost";
     String sDBSchema = "bloodbank";
     String sUser = "root";
     String sPasswd = "rO0t@locAlH0st";
-
+//*/
     //Connecting to database
     public void connect() {
 
@@ -162,7 +215,7 @@ public class DBApi {
         this.connect();
         System.out.println("insert1");
         try {
-             sql = "INSERT INTO `" + sDBSchema + "`.`profile` ( `name`, `dob`, `age`,`bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resarea`, `resvillageortownorcity`, `restaluk`, `resdistrict`, `respincode`, `resphone`, `resmobile`, `resemail`, `officeaddress`, `officearea`, `officevillageortownorcity`, `officetaluk`, `officedistrict`, `officepincode`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_oth_day`, `will_term`) VALUES (";
+             sql = "INSERT INTO `" + sDBSchema + "`.`profile` ( `name`, `dob`, `age`,`bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resdoornoandstreetorroad`, `resbuildingname`, `resarea`, `resvillageortownorcity`, `restaluk`, `resdistrict`, `respincode`, `resphone`, `resmobile`, `resemail`, `officeaddress`, `officedoornoandstreetorroad`, `officebuildingname`, `officearea`, `officevillageortownorcity`, `officetaluk`, `officedistrict`, `officepincode`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_oth_day`, `will_term`) VALUES (";
             for (int p = 0; p < arr.length; p++) {
                 sql += "'" + arr[p] + "'";
                 if (p != arr.length - 1) {
@@ -313,19 +366,23 @@ public class DBApi {
                 
                 /*
                  * When we perform an address keyword based search,
-                 * we search for the keyword to appear under any of
+                 * we search for the keyword to be part of any of
                  * the Residence or Office address fields, including
                  * Area, VillageOrTownOrCity, Taluk & District.
                  * Therefore, the address keyword search query is framed as below ...
                  * (
                  *  //Residence address fields
                  *  resaddress like '%<sAddressKeyword>%' OR
+                 *  resdoornoandstreetorroad like '%<sAddressKeyword>%' OR
+                 *  resbuildingname like '%<sAddressKeyword>%' OR
                  *  resarea like '%<sAddressKeyword>%' OR
                  *  resvillageortownorcity like '%<sAddressKeyword>%' OR
                  *  restaluk like '%<sAddressKeyword>%' OR
                  *  resdistrict like '%<sAddressKeyword>%' OR
                  *  //Office address fields
                  *  officeaddress like '%<sAddressKeyword>%' OR
+                 *  officedoornoandstreetorroad like '%<sAddressKeyword>%' OR
+                 *  officebuildingname like '%<sAddressKeyword>%' OR
                  *  officearea like '%<sAddressKeyword>%' OR
                  *  officevillageortownorcity like '%<sAddressKeyword>%' OR
                  *  officetaluk like '%<sAddressKeyword>%' OR
@@ -340,6 +397,10 @@ public class DBApi {
                     
                     sbQueryStatement.append("resaddress like '%").append(sAddressKeyword).append("%'");
                     sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("resdoornoandstreetorroad like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("resbuildingname like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
                     sbQueryStatement.append("resarea like '%").append(sAddressKeyword).append("%'");
                     sbQueryStatement.append(" OR ");
                     sbQueryStatement.append("resvillageortownorcity like '%").append(sAddressKeyword).append("%'");
@@ -349,6 +410,10 @@ public class DBApi {
                     sbQueryStatement.append("resdistrict like '%").append(sAddressKeyword).append("%'");
                     sbQueryStatement.append(" OR ");
                     sbQueryStatement.append("officeaddress like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officedoornoandstreetorroad like '%").append(sAddressKeyword).append("%'");
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append("officebuildingname like '%").append(sAddressKeyword).append("%'");
                     sbQueryStatement.append(" OR ");
                     sbQueryStatement.append("officearea like '%").append(sAddressKeyword).append("%'");
                     sbQueryStatement.append(" OR ");
