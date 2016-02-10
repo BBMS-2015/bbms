@@ -26,7 +26,8 @@ CREATE  TABLE IF NOT EXISTS `bloodbank`.`profile` (
   `spousename` VARCHAR(100) NOT NULL ,
   `education` VARCHAR(50) NOT NULL ,
   `occupation` VARCHAR(50) NOT NULL ,
-  `resaddress` VARCHAR(150) NOT NULL ,
+  `resdoornoandstreetorroad` VARCHAR(100) NOT NULL ,
+  `resbuildingname` VARCHAR(50) NOT NULL ,
   `resarea` VARCHAR(100) NULL DEFAULT NULL ,
   `resvillageortownorcity` VARCHAR(45) NULL DEFAULT NULL ,
   `restaluk` VARCHAR(100) NULL DEFAULT NULL ,
@@ -35,7 +36,8 @@ CREATE  TABLE IF NOT EXISTS `bloodbank`.`profile` (
   `resphone` VARCHAR(13) NOT NULL ,
   `resmobile` VARCHAR(13) NOT NULL ,
   `resemail` VARCHAR(254) NOT NULL ,
-  `officeaddress` VARCHAR(150) NOT NULL ,
+  `officedoornoandstreetorroad` VARCHAR(100) NOT NULL ,
+  `officebuildingname` VARCHAR(50) NOT NULL ,
   `officearea` VARCHAR(100) NULL DEFAULT NULL ,
   `officevillageortownorcity` VARCHAR(45) NULL DEFAULT NULL ,
   `officetaluk` VARCHAR(100) NULL DEFAULT NULL ,
@@ -53,6 +55,6 @@ CREATE  TABLE IF NOT EXISTS `bloodbank`.`profile` (
   `will_term` VARCHAR(15) NOT NULL ,
   PRIMARY KEY (`donorid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 1595
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 SET FOREIGN_KEY_CHECKS = 1;;
