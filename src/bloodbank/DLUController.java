@@ -314,7 +314,7 @@ public class DLUController implements Initializable {
                 
                 col.setMinWidth(sColumnName.length()*10);
 
-                col.setStyle("-fx-text-alignment: center;");
+                col.setStyle("-fx-alignment: center;");
                 
                 tvDonorTable.getColumns().addAll(col);
             }
