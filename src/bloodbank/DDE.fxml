@@ -118,20 +118,14 @@
                               <Font name="System Bold Italic" size="13.0" />
                            </font>
                         </Label>
-                        <Separator layoutX="12.0" layoutY="58.0" prefHeight="3.0" prefWidth="396.0" />
-                        <CheckBox fx:id="chbxPeriodic" layoutX="12.0" layoutY="65.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="83.0" selected="true" text="Periodic" />
-                        <ComboBox fx:id="cobxPeriodicity" layoutX="12.0" layoutY="90.0" prefHeight="25.0" prefWidth="119.0" promptText="Quarterly" />
-                        <CheckBox fx:id="chbxBirthday" layoutX="12.0" layoutY="130.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="86.0" text="Birthday" />
-                        <TextField fx:id="tfBirthday" alignment="CENTER" editable="false" layoutX="12.0" layoutY="155.0" prefHeight="25.0" prefWidth="100.0" />
-                        <CheckBox fx:id="chbxWedding" layoutX="160.0" layoutY="130.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="86.0" text="Wedding" />
-                        <TextField fx:id="tfWedding" alignment="CENTER" editable="false" layoutX="160.0" layoutY="155.0" prefHeight="25.0" prefWidth="100.0" stylesheets="@homeCSS.css" />
-                        <CheckBox fx:id="chbxOther" layoutX="308.0" layoutY="130.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="66.0" text="Other" />
-                        <TextField fx:id="tfOther" alignment="CENTER" editable="false" layoutX="308.0" layoutY="155.0" prefHeight="25.0" prefWidth="100.0" stylesheets="@homeCSS.css" />
-                        <Label layoutX="12.0" layoutY="195.0" prefHeight="15.0" prefWidth="100.0" text="Type of Donor*" />
-                        <CheckBox fx:id="chbxWB" layoutX="12.0" layoutY="220.0" mnemonicParsing="false" stylesheets="@homeCSS.css" text="Whole Blood" />
-                        <CheckBox fx:id="chbxAph" layoutX="172.0" layoutY="220.0" mnemonicParsing="false" stylesheets="@homeCSS.css" text="Apheresis" />
-                        <Label layoutX="12.0" layoutY="260.0" prefHeight="15.0" prefWidth="143.0" text="Next Donation Date*" />
-                        <TextField fx:id="tfSuggestedNextDonationDate" alignment="CENTER" layoutX="12.0" layoutY="285.0" prefHeight="25.0" prefWidth="100.0" />
+                        <Separator layoutX="12.0" layoutY="58.0" prefHeight="4.0" prefWidth="143.0" />
+                        <Label layoutX="12.0" layoutY="65.0" prefHeight="15.0" text="Donor Type*" />
+                        <CheckBox fx:id="chbxWB" layoutX="12.0" layoutY="90.0" mnemonicParsing="false" stylesheets="@homeCSS.css" text="Whole Blood" />
+                        <CheckBox fx:id="chbxAph" layoutX="12.0" layoutY="220.0" mnemonicParsing="false" stylesheets="@homeCSS.css" text="Apheresis" />
+                        <Label layoutX="12.0" layoutY="130.0" prefHeight="15.0" text="Next Donation Date*" />
+                        <TextField fx:id="tfSuggestedNextWBDonationDate" alignment="CENTER" editable="false" layoutX="12.0" layoutY="155.0" prefHeight="25.0" prefWidth="100.0" />
+                        <TextField fx:id="tfSuggestedNextAphDonationDate" alignment="CENTER" editable="false" layoutX="12.0" layoutY="285.0" prefHeight="25.0" prefWidth="100.0" />
+                        <Label layoutX="12.0" layoutY="260.0" prefHeight="15.0" text="Next Donation Date*" />
                      </children>
                   </Group>
                   <Label fx:id="lbMessage" alignment="CENTER" layoutX="45.0" layoutY="305.0" prefHeight="17.0" prefWidth="810.0" text="Either Residence or Office Address is required" textAlignment="CENTER" textFill="#e1d8d8" AnchorPane.topAnchor="305.0">

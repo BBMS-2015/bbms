@@ -125,25 +125,11 @@ public class DDEController implements Initializable {
     @FXML
     private TextField tfOfficePincode;
     @FXML
-    private TextField tfBirthday;
-    @FXML
-    private CheckBox chbxBirthday;
-    @FXML
-    private CheckBox chbxPeriodic;
-    @FXML
-    private ComboBox cobxPeriodicity;
-    @FXML
-    private CheckBox chbxWedding;
-    @FXML
-    private TextField tfWedding;
-    @FXML
-    private TextField tfOther;
-    @FXML
-    private CheckBox chbxOther;
-    @FXML
     private TextField tfRegistrationDate;
     @FXML
-    private TextField tfSuggestedNextDonationDate;
+    private TextField tfSuggestedNextWBDonationDate;
+    @FXML
+    private TextField tfSuggestedNextAphDonationDate;
     @FXML
     private CheckBox chbxWB;
     @FXML
@@ -157,7 +143,7 @@ public class DDEController implements Initializable {
     private Button btnReset;
 
     /*Navin code */
-    private String[] formData = new String[37];
+    private String[] formData = new String[38];
     private int check;
     protected boolean willingnessChoice = false;
     /* WB to be selected by default */
@@ -171,6 +157,8 @@ public class DDEController implements Initializable {
     private boolean bSpouseNameValidate;
     private boolean bRegistrationDateValidate;
     private boolean bSuggestedNextDonationDateValidate;
+    private boolean bSuggestedNextAphDonationDateValidate;
+    private boolean bSuggestedNextWBDonationDateValidate;
     private boolean bResidenceDoorNoAndStreetOrRoadValidate;
     private boolean bResidenceBuildingNameValidate;
     private boolean bResidenceAreaValidate;
@@ -225,6 +213,8 @@ public class DDEController implements Initializable {
         bSpouseNameValidate = false;
         bRegistrationDateValidate = false;
         bSuggestedNextDonationDateValidate = false;
+        bSuggestedNextAphDonationDateValidate = false;
+        bSuggestedNextWBDonationDateValidate = false;
         bResidenceDoorNoAndStreetOrRoadValidate = false;
         bResidenceBuildingNameValidate = false;
         bResidenceAreaValidate = false;
@@ -250,7 +240,6 @@ public class DDEController implements Initializable {
         bEducationValidate = false;
         bOccupationValidate = false;
         bDonorTypeValidate = false;
-        /* WB to be selected by default */
         bDonorTypeWBValidate = false;
         bDonorTypeAphValidate = false;
         bOffEmailValidate = false;
@@ -325,9 +314,6 @@ public class DDEController implements Initializable {
                     
                     if (diff >= 18 && diff < 60) {
                         tfAge.setText(String.valueOf(diff));
-                        if (chbxBirthday.isSelected()) {
-                            tfBirthday.setText(tfDOB.getText());
-                        }
                         styleClass.removeAll(Collections.singleton("error"));
                         if (!bDOBValidate) {
                             bDOBValidate = true;
@@ -354,29 +340,12 @@ public class DDEController implements Initializable {
                 
                 if (bRegistrationDateValidate) {
 
-                    String dt = tfRegistrationDate.getText();  // Start date
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Calendar c = Calendar.getInstance();
-                    try {
-                        if (!dt.isEmpty()) {
-                            c.setTime(sdf.parse(dt));
-                        }
-                    } catch (ParseException ex) {
-                        Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                    if (bWB) {
+                        tfSuggestedNextWBDonationDate.setText(calculateNextWBDonationDate(tfRegistrationDate.getText(), newPropertyValue));
                     }
-                    try {
-                        String gen = cobxGender.getSelectionModel().getSelectedItem().toString();
-                        if (gen.equals("Female") || gen.equals("TransGender")) {
-                            c.add(Calendar.MONTH, 4);  // number of days to add
-
-                        } else {
-                            c.add(Calendar.MONTH, 3);
-                        }
-
-                        dt = sdf.format(c.getTime());  // dt is now the new date
-                        tfSuggestedNextDonationDate.setText(dt);//Navin no need for incremented show
-                    } catch (NullPointerException e) {
-
+                    
+                    if (bAph) {
+                        tfSuggestedNextAphDonationDate.setText(calculateNextAphDonationDate(tfRegistrationDate.getText(), newPropertyValue));                        
                     }
                 }
                 callValidation();
@@ -617,170 +586,40 @@ public class DDEController implements Initializable {
             }
         });
 
-        tfBirthday.setEditable(false);
-
-        chbxBirthday.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> ov,
-                    Boolean old_val, Boolean new_val) {
-                if (chbxBirthday.isSelected()) {
-                    tfBirthday.setText(tfDOB.getText());
-
-                } else {
-                    tfBirthday.clear();
-                }
-            }
-        });
-
-        tfWedding.setEditable(false);
-        tfWedding.promptTextProperty().setValue("DD/MM/YYYY");
-        tfWedding.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfWedding.getStyleClass();
-                if (tfWedding.getText().trim().length() == 0) {
-                    styleClass.removeAll(Collections.singleton("error"));
-                    bWeddingValidate = false;
-                    callValidation();
-                } else if (ProjectUtils.dateValidation(tfWedding.getText())) {
-                    if (!styleClass.contains("error")) {
-                        styleClass.add("error");
-                        if (bWeddingValidate) {
-                            bWeddingValidate = false;
-                        }
-                        callValidation();
-                    }
-                } else {
-                    styleClass.removeAll(Collections.singleton("error"));
-
-                    if (!bWeddingValidate) {
-                        bWeddingValidate = true;
-                        callValidation();
-                    }
-
-                }
-            }
-        });
-        
-        chbxWedding.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> ov,
-                    Boolean old_val, Boolean new_val) {
-                ObservableList<String> styleClass = tfWedding.getStyleClass();
-                if (chbxWedding.isSelected()) {
-                    tfWedding.setEditable(true);
-                    if (bWeddingValidate) {
-                        bWeddingValidate = false;
-                        //styleClass.add("error");
-                        callValidation();
-                    }
-                } else {
-                    tfWedding.clear();
-                    tfWedding.setEditable(false);
-                    if (!bWeddingValidate) {
-                        bWeddingValidate = true;
-                        styleClass.removeAll(Collections.singleton("error"));
-                        callValidation();
-                    }
-                }
-            }
-        });
-
-        tfOther.setEditable(false);
-        tfOther.promptTextProperty().setValue("DD/MM/YYYY");
-        tfOther.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfOther.getStyleClass();
-                if (tfOther.getText().trim().length() == 0) {
-                    styleClass.removeAll(Collections.singleton("error"));
-                    bOtherValidate = false;
-                    callValidation();
-                } else if (ProjectUtils.dateValidation(tfOther.getText())) {
-                    if (!styleClass.contains("error")) {
-                        styleClass.add("error");
-                        if (bOtherValidate) {
-                            bOtherValidate = false;
-                        }
-                        callValidation();
-                    }
-                } else {
-                    styleClass.removeAll(Collections.singleton("error"));
-                    
-                    if (!bOtherValidate) {
-                        bOtherValidate = true;
-                        callValidation();
-                    }
-                }
-            }
-        });
-        
-        chbxOther.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> ov,
-                    Boolean old_val, Boolean new_val) {
-                ObservableList<String> styleClass = tfOther.getStyleClass();
-                if (chbxOther.isSelected()) {
-                    tfOther.setEditable(true);
-                    if (bOtherValidate) {
-                        //styleClass.add("error");
-                        bOtherValidate = false;
-                        callValidation();
-                    }
-                } else {
-                    tfOther.clear();
-                    tfOther.setEditable(false);
-                    styleClass.removeAll(Collections.singleton("error"));
-                    if (!bOtherValidate) {
-                        bOtherValidate = true;
-                        callValidation();
-                    }
-                }
-            }
-        });
-
-        chbxPeriodic.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> ov,
-                    Boolean old_val, Boolean new_val) {
-                if (chbxPeriodic.isSelected()) {
-                    cobxPeriodicity.setDisable(false);
-                } else {
-                    cobxPeriodicity.setDisable(true);
-                }
-            }
-        });
-        Object[] will = {"Quaterly", "Half Yearly", "Annually"};
-        cobxPeriodicity.getItems().addAll(will);
-
         chbxWB.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> ov,
                     Boolean old_val, Boolean new_val) {
 
-                if (chbxWB.isSelected()) {
+                bWB = new_val;
+                bDonorTypeWBValidate = new_val;
 
-                    bDonorTypeWBValidate = true;
-                    callValidation();
+                if (new_val) {
+                    tfSuggestedNextWBDonationDate.setText(calculateNextWBDonationDate(tfRegistrationDate.getText(), cobxGender.getSelectionModel().getSelectedItem().toString()));
                 } else {
-
-                    bDonorTypeWBValidate = false;
-                    callValidation();
+                    tfSuggestedNextWBDonationDate.clear();
                 }
-            }
+                tfSuggestedNextWBDonationDate.setEditable(new_val);
 
+                callValidation();
+            }
         });
         
         chbxAph.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> ov,
                     Boolean old_val, Boolean new_val) {
 
-                if (chbxAph.isSelected()) {
+                bAph = new_val;
+                bDonorTypeAphValidate = new_val;
 
-                    bDonorTypeAphValidate = true;
-                    callValidation();
+                if (new_val) {
+                    tfSuggestedNextAphDonationDate.setText(calculateNextAphDonationDate(tfRegistrationDate.getText(), cobxGender.getSelectionModel().getSelectedItem().toString()));
                 } else {
-
-                    bDonorTypeAphValidate = false;
-                    callValidation();
+                    tfSuggestedNextAphDonationDate.clear();
                 }
-            }
+                tfSuggestedNextAphDonationDate.setEditable(new_val);
 
+                callValidation();
+            }
         });
 
         Object[] bloodGroup = {"--Select--", "A1+", "A1-", "A2+", "A2-", "B+", "B-", "O+", "O-", "A1B+", "A1B-", "A2B+", "A2B-", "BOMBAY GROUP"};
@@ -856,76 +695,62 @@ public class DDEController implements Initializable {
                     }
                     if (bGenderValidate) {
                         String dt = tfRegistrationDate.getText();  // Start date
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        Calendar c = Calendar.getInstance();
-                        try {
-                            if (!dt.isEmpty()) {
-                                c.setTime(sdf.parse(dt));
-                            }
-                        } catch (ParseException ex) {
-                            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
                         String gen = cobxGender.getSelectionModel().getSelectedItem().toString();
-                        if (gen.equals("Female")) {
-                            c.add(Calendar.MONTH, 4);  // number of days to add
-                        } else {
-                            c.add(Calendar.MONTH, 3);
-                        }
 
-                        dt = sdf.format(c.getTime());  // dt is now the new date
-                        tfSuggestedNextDonationDate.setText(dt);//Navin no need for incremented show
+                        if (bWB) {
+                            tfSuggestedNextWBDonationDate.setText(calculateNextWBDonationDate(dt, gen));
+                        }
+                        
+                        if (bAph) {
+                            tfSuggestedNextAphDonationDate.setText(calculateNextAphDonationDate(dt, gen));
+                        }
                     }
                 }
             }
         });
 
-        tfSuggestedNextDonationDate.promptTextProperty().setValue("DD/MM/YYYY");
-        tfSuggestedNextDonationDate.textProperty().addListener(new ChangeListener<String>() {
+        tfSuggestedNextWBDonationDate.promptTextProperty().setValue("DD/MM/YYYY");
+        tfSuggestedNextWBDonationDate.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
-                ObservableList<String> styleClass = tfSuggestedNextDonationDate.getStyleClass();
-                if (tfSuggestedNextDonationDate.getText().length() == 0) {
+                ObservableList<String> styleClass = tfSuggestedNextWBDonationDate.getStyleClass();
+                if (tfSuggestedNextWBDonationDate.getText().length() == 0) {
                     styleClass.removeAll(Collections.singleton("error"));
-                    bSuggestedNextDonationDateValidate = false;
+                    bSuggestedNextWBDonationDateValidate = false;
                     callValidation();
-                } else if (ProjectUtils.dateValidation(tfSuggestedNextDonationDate.getText())) {
+                } else if (ProjectUtils.dateValidation(tfSuggestedNextWBDonationDate.getText())) {
                     if (!styleClass.contains("error")) {
                         styleClass.add("error");
-                        if (bSuggestedNextDonationDateValidate) {
-                            bSuggestedNextDonationDateValidate = false;
-                        }
+                        bSuggestedNextWBDonationDateValidate = false;
                         callValidation();
                     }
                 } else {
                     styleClass.removeAll(Collections.singleton("error"));
-                    if (!bSuggestedNextDonationDateValidate) {
-                        bSuggestedNextDonationDateValidate = true;
+                    bSuggestedNextWBDonationDateValidate = true;
+                    callValidation();
+                }
+            }
+        });
+
+        tfSuggestedNextAphDonationDate.promptTextProperty().setValue("DD/MM/YYYY");
+        tfSuggestedNextAphDonationDate.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String sOldValue, String sNewValue) {
+                ObservableList<String> styleClass = tfSuggestedNextAphDonationDate.getStyleClass();
+                if (tfSuggestedNextAphDonationDate.getText().length() == 0) {
+                    styleClass.removeAll(Collections.singleton("error"));
+                    bSuggestedNextAphDonationDateValidate = false;
+                    callValidation();
+                } else if (ProjectUtils.dateValidation(tfSuggestedNextAphDonationDate.getText())) {
+                    if (!styleClass.contains("error")) {
+                        styleClass.add("error");
+                        bSuggestedNextAphDonationDateValidate = false;
                         callValidation();
                     }
-                }
-            }
-        });
-
-        chbxWB.selectedProperty().addListener(new ChangeListener<Boolean>() {
-
-            public void changed(ObservableValue<? extends Boolean> ov,
-                    Boolean old_val, Boolean new_val) {
-                if (chbxWB.isSelected()) {
-                    bWB = true;
                 } else {
-                    bWB = false;
-                }
-            }
-        });
-
-        chbxAph.selectedProperty().addListener(new ChangeListener<Boolean>() {
-
-            public void changed(ObservableValue<? extends Boolean> ov,
-                    Boolean old_val, Boolean new_val) {
-                if (chbxAph.isSelected()) {
-                    bAph = true;
-                } else {
-                    bAph = false;
+                    styleClass.removeAll(Collections.singleton("error"));
+                    bSuggestedNextAphDonationDateValidate = true;
+                    callValidation();
                 }
             }
         });
@@ -1454,10 +1279,7 @@ public class DDEController implements Initializable {
         tfAge.setDisable(true);
         
         cobxGender.getSelectionModel().selectFirst();
-        
-        chbxPeriodic.setSelected(true);
-        cobxPeriodicity.getSelectionModel().selectFirst();
-        
+         
         cobxBloodGroup.getSelectionModel().selectFirst();
         
         chbxWB.setSelected(true);
@@ -1465,10 +1287,46 @@ public class DDEController implements Initializable {
         tfRegistrationDate.setText(ProjectUtils.getCurrentDate());
     }
 
+    private String calculateNextWBDonationDate(String strRegistrationDate, String strGender) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        try {
+            if (!strRegistrationDate.isEmpty()) {
+                c.setTime(sdf.parse(strRegistrationDate));
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(DDEController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (strGender.equals("Male")) {
+            c.add(Calendar.MONTH, 3);  // number of days to add
+        } else {
+            c.add(Calendar.MONTH, 4);
+        }
+
+        return sdf.format(c.getTime());  // dt is now the new date
+    }
+    
+    private String calculateNextAphDonationDate(String strRegistrationDate, String strGender) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        try {
+            if (!strRegistrationDate.isEmpty()) {
+                c.setTime(sdf.parse(strRegistrationDate));
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(DDEController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (strGender.equals("Male")) {
+            c.add(Calendar.MONTH, 3);  // number of days to add
+        } else {
+            c.add(Calendar.MONTH, 4);
+        }
+
+        return sdf.format(c.getTime());  // dt is now the new date
+    }
+    
     private void callValidation() {
         boolean dobValidate = !ProjectUtils.dateValidation(tfDOB.getText().trim());           
-        boolean chbxOtherValidate = chbxOther.isSelected();
-        boolean chbxWeddingValidate = chbxWedding.isSelected();
         int iDoorNoAndStreetOrRoadLength, iVillageOrTownOrCityLength, iPincodeLength;
         int iLandlineLength, iLandlineStdCodeLength;
         int iMobileLength;
@@ -1581,12 +1439,18 @@ public class DDEController implements Initializable {
 
         if (bDonorTypeWBValidate || bDonorTypeAphValidate) {
             bDonorTypeValidate = true;
-            styleClass.removeAll(Collections.singleton("error"));
             styleClass1.removeAll(Collections.singleton("error"));
         } else {
             bDonorTypeValidate = false;
-            //styleClass.add("error");
             styleClass1.add("error");
+        }
+
+        if (bSuggestedNextWBDonationDateValidate || bSuggestedNextAphDonationDateValidate) {
+            bSuggestedNextDonationDateValidate = true;
+            styleClass1.removeAll(Collections.singleton("error"));
+        } else {
+            bDonorTypeValidate = false;
+            styleClass1.add("error");            
         }
         
         boolean mandatoryFieldsValidate = bNameValidate && bDOBValidate && bBloodGroupValidate && bSpouseNameValidate && bEducationValidate && bOccupationValidate && bDonorTypeValidate && bRegistrationDateValidate && bSuggestedNextDonationDateValidate;
@@ -1594,10 +1458,9 @@ public class DDEController implements Initializable {
         boolean bDonorContactAddressIncompleteValidate = resAddrValidate && offAddrValidate;
         boolean donorContactsValidate = (bResLandlineStdCodeValidate && bResLandlineNumberValidate) || bResMobileNumberValidate || bResEmailValidate || (bOffLandlineStdCodeValidate && bOffLandlineNumberValidate) || bOffMobileNumberValidate || bOffEmailValidate;
         boolean bDonorContactsIncompleteValidate = resPhoneValidate && offPhoneValidate && resMobileValidate && offMobileValidate && resEmailValidate && offEmailValidate;
-        boolean donorWillingness = (bOtherValidate || !chbxOtherValidate) && (bWeddingValidate || !chbxWeddingValidate);
 
         StringBuilder s = new StringBuilder("");
-        if (mandatoryFieldsValidate && donorWillingness && donorContactAddressValidate && bDonorContactAddressIncompleteValidate && donorContactsValidate && bDonorContactsIncompleteValidate) {
+        if (mandatoryFieldsValidate && donorContactAddressValidate && bDonorContactAddressIncompleteValidate && donorContactsValidate && bDonorContactsIncompleteValidate) {
             validation.setProperty(1);
             lbMessage.setText("You can Add Donor Detail");
             lbMessage.setStyle("-fx-text-alignment: center; -fx-text-fill: green");
@@ -1609,8 +1472,6 @@ public class DDEController implements Initializable {
                 } else {
                     s.append("Mandatory fields(*) not filled");
                 }
-            } else if (!donorWillingness) {
-                s.append("Invalid wedding/other date fields");
             } else if (!donorContactAddressValidate || !bDonorContactAddressIncompleteValidate) {
                 if (!resAddrValidate) {
                     s.append("Mandatory residence address fields(*) not filled");
@@ -1660,10 +1521,6 @@ public class DDEController implements Initializable {
 
         gender = cobxGender.getSelectionModel().getSelectedItem().toString();
 
-        if (chbxPeriodic.isSelected()) {
-            will_term = cobxPeriodicity.getSelectionModel().getSelectedItem().toString();
-        }
-
         String spousename = tfSpouseName.getText(),
                 education = tfEducation.getText(),
                 occupation = tfOccupation.getText(),
@@ -1704,11 +1561,12 @@ public class DDEController implements Initializable {
                 offmob = tfOfficeMobile.getText(),
                 offemail = tfOfficeEmail.getText(),
                 dod = tfRegistrationDate.getText(),
-                nsdod = tfSuggestedNextDonationDate.getText(),
+                nsdod = tfSuggestedNextWBDonationDate.getText(),
+                nsdodaph = tfSuggestedNextAphDonationDate.getText(),
                 will = donorType,
-                will_bday = tfBirthday.getText(),
-                will_wed_day = tfWedding.getText(),
-                will_oth_day = tfOther.getText();
+                will_bday = "",
+                will_wed_day = "",
+                will_oth_day = "";
 
         if (resphone.length() > 0) {
             resphone = resstd + "-" + resphone;
@@ -1763,6 +1621,7 @@ public class DDEController implements Initializable {
 
         formData[iIndex++] = dod;
         formData[iIndex++] = nsdod;
+        formData[iIndex++] = nsdodaph;
 
         formData[iIndex++] = will;
         formData[iIndex++] = will_bday;
@@ -1914,22 +1773,12 @@ public class DDEController implements Initializable {
         tfOfficeDistrict.clear();
         tfOfficeEmail.clear();
         
-        tfBirthday.clear();
-        tfWedding.clear();
-        tfOther.clear();
 //        tfRegistrationDate.clear();
-//        tfSuggestedNextDonationDate.clear();
+//        tfSuggestedNextWBDonationDate.clear();
 
         cobxGender.getSelectionModel().selectFirst();
 
         cobxBloodGroup.getSelectionModel().selectFirst();
-        
-        chbxPeriodic.setSelected(true);
-        cobxPeriodicity.getSelectionModel().selectFirst();
-        
-        chbxBirthday.setSelected(false);
-        chbxWedding.setSelected(false);
-        chbxOther.setSelected(false);
         
         chbxWB.setSelected(true);
         chbxAph.setSelected(false);
@@ -2196,43 +2045,15 @@ public class DDEController implements Initializable {
     }
     
     public void setPeriodicity(String strPeriodicity) {
-        if (strPeriodicity.length() > 0) {
-            chbxPeriodic.setSelected(true);
-            cobxPeriodicity.getSelectionModel().select(strPeriodicity);            
-        } else {
-            cobxPeriodicity.getSelectionModel().clearSelection();
-            chbxPeriodic.setSelected(false);
-        }
     }
     
     public void setWillingOnBirthday(String strBirthday) {
-        if (strBirthday.length() > 0) {
-            chbxBirthday.setSelected(true);
-            tfBirthday.setText(strBirthday);            
-        } else {
-            tfBirthday.clear();
-            chbxBirthday.setSelected(false);
-        }
     }
     
     public void setWillingOnWeddingDay(String strWeddingDay) {
-        if (strWeddingDay.length() > 0) {
-            chbxWedding.setSelected(true);
-            tfWedding.setText(strWeddingDay);
-        } else {
-            tfWedding.clear();
-            chbxWedding.setSelected(false);
-        }
     }
     
     public void setWillingOnOtherDay(String strOther) {
-        if (strOther.length() > 0) {
-            chbxOther.setSelected(true);
-            tfOther.setText(strOther);
-        } else {
-            tfOther.clear();
-            chbxOther.setSelected(false);
-        }
     }
     
     public void setWholeBloodDonor(boolean bWBDonor) {
@@ -2248,7 +2069,7 @@ public class DDEController implements Initializable {
     }
     
     public void setSuggestedNextDonationDate(String strSuggestedNextDonationDate) {
-        tfSuggestedNextDonationDate.setText(strSuggestedNextDonationDate);
+        tfSuggestedNextWBDonationDate.setText(strSuggestedNextDonationDate);
     }
     
     class MyPropertyChangeListener implements PropertyChangeListener {

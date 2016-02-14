@@ -312,11 +312,10 @@ public class DLUController implements Initializable {
                     }
                 });
                 
-                if (i == iColumnCount-1)
-                    col.setMinWidth(800);
-                else
-                    col.setMinWidth(sColumnName.length()*10);
-              
+                col.setMinWidth(sColumnName.length()*10);
+
+                col.setStyle("-fx-text-alignment: center;");
+                
                 tvDonorTable.getColumns().addAll(col);
             }
 

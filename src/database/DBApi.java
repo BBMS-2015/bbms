@@ -28,7 +28,8 @@ public class DBApi {
                      "coalesce(NULLIF(resmobile, ''), NULLIF(officemobile, ''), " +
                      "NULLIF(resphone, ''), NULLIF(officephone, ''), " +
                      "NULLIF(resemail, ''), NULLIF(officeemail, '')) as contact, " +
-                     "donor_type, " +
+                     "donor_type " +
+            /*
                      "coalesce(concat(resaddress, " +
                                      "IF(length(resaddress) > 0, " +
                                         "',\\n', " +
@@ -68,9 +69,10 @@ public class DBApi {
                                      "officepincode" +
                                     ")" +
                              ") as address " +
+            */
                      "FROM profile";
-    String commonq1= "(TIMESTAMPDIFF(DAY,DATE_FORMAT(STR_TO_DATE(nsdod,'%d/%m/%Y'),'%Y-%m-%d'),DATE_FORMAT(SYSDATE(),'%Y-%m-%d')) >= 0)";
-    
+    String commonq1 = "(TIMESTAMPDIFF(DAY,DATE_FORMAT(STR_TO_DATE(nsdod,'%d/%m/%Y'),'%Y-%m-%d'),DATE_FORMAT(SYSDATE(),'%Y-%m-%d')) >= 0)";
+    String commonq2 = "(TIMESTAMPDIFF(DAY,DATE_FORMAT(STR_TO_DATE(nsdodaph,'%d/%m/%Y'),'%Y-%m-%d'),DATE_FORMAT(SYSDATE(),'%Y-%m-%d')) >= 0)";
     String strDSEQuery = "SELECT donorid as 'Donor ID', name as 'Name', " +
                          "spousename as 'Father/Spouse Name', dob as 'DOB', " +
                          "gender as 'Gender', bloodgroup as 'BloodGroup', " +
@@ -215,7 +217,7 @@ public class DBApi {
         this.connect();
         System.out.println("insert1");
         try {
-             sql = "INSERT INTO `" + sDBSchema + "`.`profile` ( `name`, `dob`, `age`,`bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resdoornoandstreetorroad`, `resbuildingname`, `resarea`, `resvillageortownorcity`, `restaluk`, `resdistrict`, `respincode`, `resphone`, `resmobile`, `resemail`, `officeaddress`, `officedoornoandstreetorroad`, `officebuildingname`, `officearea`, `officevillageortownorcity`, `officetaluk`, `officedistrict`, `officepincode`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `donor_type`, `willl_bday`, `will_wed_day`, `will_oth_day`, `will_term`) VALUES (";
+             sql = "INSERT INTO `" + sDBSchema + "`.`profile` ( `name`, `dob`, `age`,`bloodgroup`, `gender`, `spousename`, `education`, `occupation`, `resaddress`, `resdoornoandstreetorroad`, `resbuildingname`, `resarea`, `resvillageortownorcity`, `restaluk`, `resdistrict`, `respincode`, `resphone`, `resmobile`, `resemail`, `officeaddress`, `officedoornoandstreetorroad`, `officebuildingname`, `officearea`, `officevillageortownorcity`, `officetaluk`, `officedistrict`, `officepincode`, `officephone`, `officemobile`, `officeemail`, `dor`, `nsdod`, `nsdodaph`, `donor_type`, `willl_bday`, `will_wed_day`, `will_oth_day`, `will_term`) VALUES (";
             for (int p = 0; p < arr.length; p++) {
                 sql += "'" + arr[p] + "'";
                 if (p != arr.length - 1) {
@@ -314,6 +316,8 @@ public class DBApi {
                 if (sListing.equals("Only Eligible Donors")) {
                     sbQueryStatement.append(sLogicAND);
                     sbQueryStatement.append(commonq1);
+                    sbQueryStatement.append(" OR ");
+                    sbQueryStatement.append(commonq2);
                 }
 
                 /*
