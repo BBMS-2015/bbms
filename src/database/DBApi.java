@@ -270,7 +270,7 @@ public class DBApi {
     }
 
 //DLU - Get Data
-   public void dlu_fil(String val, String val1, String val2, String sListing, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) throws SQLException {
+   public void dlu_fil(String val, String val1, String val2, String sDonorType, String sListing, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) throws SQLException {
 
         try {
             StringBuilder sbQueryStatement = new StringBuilder();
@@ -281,7 +281,7 @@ public class DBApi {
             
             sbQueryStatement.append(commonq);
             
-            if (!val.contains("All") || !val1.contains("All") || !val2.contains("All") || !sListing.contains("All") || !sArea.contains("All") || !sVillageOrTownOrCity.contains("All") || sAddressKeyword.length() > 0) {
+            if (!val.contains("All") || !val1.contains("All") || !val2.contains("All") || !sDonorType.contains("All") || !sListing.contains("All") || !sArea.contains("All") || !sVillageOrTownOrCity.contains("All") || sAddressKeyword.length() > 0) {
                 sbQueryStatement.append(" where ");
             
                 if (!val.contains("All")) {
@@ -313,6 +313,12 @@ public class DBApi {
                     sLogicAND = " AND ";
                 }            
 
+                if (!sDonorType.contains("All")) {
+                    sbQueryStatement.append(sLogicAND);
+                    sbQueryStatement.append("donor_type='").append(sDonorType).append("'");
+                    sLogicAND = " AND ";
+                }
+                
                 if (sListing.equals("Only Eligible Donors")) {
                     sbQueryStatement.append(sLogicAND);
                     sbQueryStatement.append(commonq1);
@@ -502,9 +508,9 @@ public class DBApi {
     }
 
     //NUMBER OF COLUMNS
-    public int columns_fil(String sBloodGroup, String sAgeGroup, String sGender, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
+    public int columns_fil(String sBloodGroup, String sAgeGroup, String sGender, String sDonorType, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
         try {
-            this.dlu_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
+            this.dlu_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
         } catch (SQLException ex) {
             System.out.println("Error :"+ex);
         }
@@ -513,9 +519,9 @@ public class DBApi {
     }
 
     // NUMBER OF ROWS  
-    public int rows_fil(String sBloodGroup, String sAgeGroup, String sGender, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
+    public int rows_fil(String sBloodGroup, String sAgeGroup, String sGender, String sDonorType, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
         try {
-            this.dlu_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
+            this.dlu_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
         } catch (SQLException ex) {
             System.out.println("Error :"+ex);
         }
@@ -598,6 +604,23 @@ public class DBApi {
         return def_ans;
     }
 
+    public String[] getDonorTypes() {
+        try {
+            stmt = conn.createStatement();
+            res = stmt.executeQuery("SELECT DISTINCT donor_type from profile");
+            List rowValues = new ArrayList();
+            while (res.next()) {
+                rowValues.add(res.getString("donor_type"));
+            }
+            def_ans = (String[])rowValues.toArray(new String[rowValues.size()]);
+            res.close();
+            stmt.close();
+        } catch (SQLException e) {
+        }
+        
+        return def_ans;        
+    }
+    
     public String[] getAreas() {
         try {
             stmt = conn.createStatement();

@@ -43,6 +43,8 @@ public class DLUController implements Initializable {
     @FXML
     private ComboBox cmbbxGenderFilter;
     @FXML
+    private ComboBox cmbbxTypeFilter;
+    @FXML
     private ComboBox cmbbxEligibilityFilter;
     @FXML
     private ComboBox cmbbxAreaFilter;
@@ -83,41 +85,48 @@ public class DLUController implements Initializable {
         String sBloodGroup;
         String sAgeGroup;
         String sGender;
+        String sDonorType;
         String sEligibility;
         String sArea;
         String sVillageOrTownOrCity;
         String sAddressKeyword;
         
         Object[] bg1 = (Object[]) objDBApi.getbg();
-        sBloodGroup = "All Blood Groups";
+        sBloodGroup = "All";
         cmbbxBloodGroupFilter.getItems().add(sBloodGroup);
         cmbbxBloodGroupFilter.getItems().addAll(bg1);
         cmbbxBloodGroupFilter.getSelectionModel().selectFirst();
         
-        Object[] ag = {"All Age Groups", "18-30", "31-40", "41-50", "51-60"};
+        Object[] ag = {"All", "18-30", "31-40", "41-50", "51-60"};
         cmbbxAgeGroupFilter.getItems().addAll(ag);
         cmbbxAgeGroupFilter.getSelectionModel().selectFirst();
         sAgeGroup = cmbbxAgeGroupFilter.getSelectionModel().getSelectedItem().toString();
 
         Object[] gend = (Object[]) objDBApi.getgend();
-        sGender = "All Genders";
+        sGender = "All";
         cmbbxGenderFilter.getItems().add(sGender);
         cmbbxGenderFilter.getItems().addAll(gend);
         cmbbxGenderFilter.getSelectionModel().selectFirst();
 
-        Object[] objListing = {"All Donors", "Only Eligible Donors"};
+        Object[] donorType = (Object[]) objDBApi.getDonorTypes();
+        sDonorType = "All";
+        cmbbxTypeFilter.getItems().add(sDonorType);
+        cmbbxTypeFilter.getItems().addAll(donorType);
+        cmbbxTypeFilter.getSelectionModel().selectFirst();
+
+        Object[] objListing = {"All", "Only Eligible Donors"};
         cmbbxEligibilityFilter.getItems().addAll(objListing);
         cmbbxEligibilityFilter.getSelectionModel().selectFirst();
         sEligibility = cmbbxEligibilityFilter.getSelectionModel().getSelectedItem().toString();        
 
         Object[] objArea = (Object[]) objDBApi.getAreas();
-        sArea = "All Areas";
+        sArea = "All";
         cmbbxAreaFilter.getItems().add(sArea);
         cmbbxAreaFilter.getItems().addAll(objArea);
         cmbbxAreaFilter.getSelectionModel().selectFirst();
 
         Object[] objVillageOrTownOrCity = (Object[]) objDBApi.getVillagesOrTownsOrCities();
-        sVillageOrTownOrCity = "All Villages/Towns/Cities";
+        sVillageOrTownOrCity = "All";
         cmbbxVillageOrTownOrCityFilter.getItems().add(sVillageOrTownOrCity);
         cmbbxVillageOrTownOrCityFilter.getItems().addAll(objVillageOrTownOrCity);
         cmbbxVillageOrTownOrCityFilter.getSelectionModel().selectFirst();
@@ -137,7 +146,7 @@ public class DLUController implements Initializable {
         sAddressKeyword = tfAddressKeyword.getText().trim();
         
         tvDonorTable.getColumns().clear();
-        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
+        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
     }
 
     @FXML
@@ -146,6 +155,7 @@ public class DLUController implements Initializable {
         String sBloodGroup;
         String sAgeGroup;
         String sGender;
+        String sDonorType;
         String sEligibility;
         String sArea;
         String sVillageOrTownOrCity;
@@ -157,6 +167,8 @@ public class DLUController implements Initializable {
 
         sGender = cmbbxGenderFilter.getSelectionModel().getSelectedItem().toString();
 
+        sDonorType = cmbbxTypeFilter.getSelectionModel().getSelectedItem().toString();
+        
         sEligibility = cmbbxEligibilityFilter.getSelectionModel().getSelectedItem().toString();
         
         sArea = cmbbxAreaFilter.getSelectionModel().getSelectedItem().toString();
@@ -168,7 +180,7 @@ public class DLUController implements Initializable {
         data.clear();
         data.removeAll(data);
         tvDonorTable.getColumns().clear();
-        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);      
+        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);      
     }
     
     @FXML
@@ -177,6 +189,7 @@ public class DLUController implements Initializable {
         String sBloodGroup;
         String sAgeGroup;
         String sGender;
+        String sDonorType;
         String sEligibility;
         String sArea;
         String sVillageOrTownOrCity;
@@ -186,7 +199,7 @@ public class DLUController implements Initializable {
         /* Preserve the current selection */
         Object objSelectedItem = cmbbxBloodGroupFilter.getSelectionModel().getSelectedItem();
         cmbbxBloodGroupFilter.getItems().removeAll(olBloodGroup);
-        cmbbxBloodGroupFilter.getItems().add("All Blood Groups");
+        cmbbxBloodGroupFilter.getItems().add("All");
         cmbbxBloodGroupFilter.getItems().addAll((Object[])objDBApi.getbg());
         /* Restore the previous selection if still available */
         if (cmbbxBloodGroupFilter.getItems().indexOf(objSelectedItem) >= 0) {
@@ -201,7 +214,7 @@ public class DLUController implements Initializable {
         objSelectedItem = cmbbxGenderFilter.getSelectionModel().getSelectedItem();
         cmbbxGenderFilter.getItems().removeAll(o);
         Object[] gend = (Object[]) objDBApi.getgend();
-        cmbbxGenderFilter.getItems().add("All Genders");
+        cmbbxGenderFilter.getItems().add("All");
         cmbbxGenderFilter.getItems().addAll(gend);
         /*Navin code*/
         /* Restore the previous selection if still available */
@@ -215,7 +228,7 @@ public class DLUController implements Initializable {
         /* Preserve the current selection */
         objSelectedItem = cmbbxAreaFilter.getSelectionModel().getSelectedItem();
         cmbbxAreaFilter.getItems().removeAll(olAreas);
-        cmbbxAreaFilter.getItems().add("All Areas");
+        cmbbxAreaFilter.getItems().add("All");
         cmbbxAreaFilter.getItems().addAll((Object[])objDBApi.getAreas());
         /* Restore the previous selection if still available */
         if (cmbbxAreaFilter.getItems().indexOf(objSelectedItem) >= 0) {
@@ -228,7 +241,7 @@ public class DLUController implements Initializable {
         /* Preserve the current selection */
         objSelectedItem = cmbbxVillageOrTownOrCityFilter.getSelectionModel().getSelectedItem();
         cmbbxVillageOrTownOrCityFilter.getItems().removeAll(olVillagesOrTownsOrCities);
-        cmbbxVillageOrTownOrCityFilter.getItems().add("All Villages/Towns/Cities");
+        cmbbxVillageOrTownOrCityFilter.getItems().add("All");
         cmbbxVillageOrTownOrCityFilter.getItems().addAll((Object[])objDBApi.getVillagesOrTownsOrCities());
         /* Restore the previous selection if still available */
         if (cmbbxVillageOrTownOrCityFilter.getItems().indexOf(objSelectedItem) >= 0) {
@@ -243,6 +256,8 @@ public class DLUController implements Initializable {
 
         sGender = cmbbxGenderFilter.getSelectionModel().getSelectedItem().toString();
 
+        sDonorType = cmbbxTypeFilter.getSelectionModel().getSelectedItem().toString();
+        
         sEligibility = cmbbxEligibilityFilter.getSelectionModel().getSelectedItem().toString();
 
         sArea = cmbbxAreaFilter.getSelectionModel().getSelectedItem().toString();
@@ -254,7 +269,7 @@ public class DLUController implements Initializable {
         data.clear();
         data.removeAll(data);
         tvDonorTable.getColumns().clear();
-        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);      
+        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);      
     }
     
     @FXML
@@ -263,6 +278,7 @@ public class DLUController implements Initializable {
         String sBloodGroup;
         String sAgeGroup;
         String sGender;
+        String sDonorType;
         String sEligibility;
         String sArea;
         String sVillageOrTownOrCity;
@@ -271,6 +287,7 @@ public class DLUController implements Initializable {
         cmbbxBloodGroupFilter.getSelectionModel().selectFirst();
         cmbbxAgeGroupFilter.getSelectionModel().selectFirst();
         cmbbxGenderFilter.getSelectionModel().selectFirst();
+        cmbbxTypeFilter.getSelectionModel().selectFirst();
         cmbbxEligibilityFilter.getSelectionModel().selectFirst();
         cmbbxAreaFilter.getSelectionModel().selectFirst();
         cmbbxVillageOrTownOrCityFilter.getSelectionModel().selectFirst();
@@ -282,6 +299,8 @@ public class DLUController implements Initializable {
 
         sGender = cmbbxGenderFilter.getSelectionModel().getSelectedItem().toString();
 
+        sDonorType = cmbbxTypeFilter.getSelectionModel().getSelectedItem().toString();
+        
         sEligibility = cmbbxEligibilityFilter.getSelectionModel().getSelectedItem().toString();
 
         sArea = cmbbxAreaFilter.getSelectionModel().getSelectedItem().toString();
@@ -293,13 +312,13 @@ public class DLUController implements Initializable {
         data.clear();
         data.removeAll(data);
         tvDonorTable.getColumns().clear();
-        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);      
+        populate_table_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);      
     }
     
-    public void populate_table_fil(String sBloodGroup, String sAgeGroup, String sGender, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
+    public void populate_table_fil(String sBloodGroup, String sAgeGroup, String sGender, String sDonorType, String sEligibility, String sArea, String sVillageOrTownOrCity, String sAddressKeyword) {
 
         try {
-            int iRowCount = objDBApi.rows_fil(sBloodGroup, sAgeGroup, sGender, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
+            int iRowCount = objDBApi.rows_fil(sBloodGroup, sAgeGroup, sGender, sDonorType, sEligibility, sArea, sVillageOrTownOrCity, sAddressKeyword);
             int iColumnCount = objDBApi.getColumnCount();
             row = null;
             for (int i = 0; i < iColumnCount; i++) {
